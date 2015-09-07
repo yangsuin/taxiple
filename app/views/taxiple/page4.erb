@@ -1,0 +1,257 @@
+<div class = "intro">
+ <section style="margin: 0px; padding:10px;"></section>
+  <center>
+  <!--@user.where(id: current_user).count(register_to_use: false) 이거 넣어서 만약 참여한다면 자신이 속한 방의 정보를 보여주고 그다음 밑의 줄을 else로 처리해서 하기 -->
+    
+    <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false)%> 
+    <!-- 
+        -방장 화면-
+        1.현재 접속중인 사용자가 방을 만든 적이 있을 때(단, MkRoom이 destroy되면 그 줄이 날아가기때문에 나갔던 방을 계산할 필요가 없다.)
+        2. 그방이 끝나지도 않았을 때
+        3. 현재 접속중인 사용자가 다른 방에 참여하지 않은 상태일때 -->
+      <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
+          <div class="container">
+            <div class = "back" style="padding-bottom: 30px;">   
+              <p>방번호 : <%= mkroom.id %></p>
+              <p>경로 : <%= mkroom.course %></p>
+              <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%></p>
+              <p>인원수 : <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %> </p>
+              <form action="/taxiple/delete" method="GET">
+                <input type="hidden" name="mk_room_num" value="<%= mkroom.id %>">
+                <input type="submit" value="방 나가기">
+              </form>
+            </div>
+          </div>
+      <% end %>
+    <% elsif @register_user == true %>
+    <!--
+    -참가자 화면-
+    1. 현재 접속중인 사용자가 참여하기를 눌렀을 경우-->
+      <% if !@list.where(person_2: current_user.email).empty? %> <!--person_2에 참가했을 경우 -->
+        <% @mkroom.where(id: @p).each do |p| %>  
+          <div class="container">
+            <div class = "back" style="padding-bottom: 30px;">   
+              <p>방번호 : <%= p.id %></p>
+              <p>경로 : <%= p.course %></p>
+              <p>시간 : <%= p.user_hour%> : <%= p.user_minute%></p>
+              <p>인원수 : <%= p.num_of_user_join %> / <%= p.num_member_limit %> </p>
+              <form action="/taxiple/getout" method="GET">
+                <input type="hidden" name="mk_room_num" value="<%= p.id %>">
+                <input type="submit" value="방 나가기">
+              </form>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+    <!--
+    -구경꾼-
+    1. 반대로 현재 접속중인 사용자가 방을 만든적이 없거나 그방이 끝났을때-->
+      <div class = "container">
+        <div class = "back" style="padding-bottom: 30px;">   
+          <center>
+             <!--드롭다운 -->
+            <div class="wrapper">
+              <div class="position">
+                <h4>경로와 시간, 여성전용 여부, 인원 수를<br>선택해주세요!</h4>
+              </div>
+            </div>
+             <!--드롭다운 end -->
+          </center>
+          <br>
+          <div style="font-size: 20px; line-height: 200%;">
+            <center>
+              <%#= form_tag "create",class: "form-inline" do %>
+             <form action="/taxiple/create" method="GET">
+                경로 선택 : 
+                <select name="course">
+                  <option value="경로">경로</option>
+                  <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
+                  <option value="서울대입구역 -> 서울대">서울대입구역 -> 서울대</option>
+                </select>
+                <br>
+                시간 선택:
+                <select name="user_hour">
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                 </select> :
+                 <select name="user_minute">
+                    <option value="00">00</option>
+                    <option value="05">05</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                  </select>까지
+                  <br>
+                  <div>
+                  <input type="radio" name="girl_only" value="girl">여성전용
+                  <i class="fa fa-female" style = "color: red;"></i>&nbsp;&nbsp;
+                  <input type="radio" name="girl_only" value="common" checked="checked">일반
+                  <i class="fa fa-female" style = "color: red;"></i>
+                  <i class="fa fa-male" style = "color: blue;"></i>
+                  </div>
+                  인원 수 : 
+                  <select name="num_member_limit">
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                  </select>
+                  <br><br>
+                <input type="hidden" value=true name="register_to_use">
+                <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
+                <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
+                <% end %>
+                <input type="submit" value="방만들기" class="btn btn-warning btn-lg">
+              <%# end %>
+              </form>
+            </center>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <br>
+    <br>
+    <div class = "container">
+      <div class = "back" id = "intro_rooms">   
+        <div class = "row">
+          <% @mkroom.each do |mkroom| %> <!--방에대한 정보를 뿌리기 위한 루비문법-->
+            <div class = "col-md-12">
+                <div class = "panel panel-default room" style="margin: 20px 10px;">
+                  <div class = "panel-heading"><%= mkroom.id %>. <%= mkroom.course%> 
+                  <% if mkroom.girl_only == "girl"%><i class="fa fa-female" style = "color: red;"></i><%end%>
+                  </div>
+                  <div class = "panel-body" align = "left">
+                    <div class = "logo">
+                      <img src = "http://www.snu.ac.kr/images/common/img/img01_mark_ab0102.gif" width = "40px">
+                    </div>
+                    <table>
+                      <tr>
+                        <% @user.where(id: mkroom.user_id).each do |x| %>
+                          <td class = "name">개설자 : <%= x.email %></td>
+                        <% end %>
+                      </tr>
+                      <tr>
+                        <% @list.where(mk_room_id: mkroom.id).each do |list| %>
+                        <td class = "name">참여자 : <%= list.person_2 %>, <%= list.person_3 %>, <%= list.person_4 %></td>
+                        <% end %>
+                      </tr>
+                      <tr>
+                        <td class = "time">시간&nbsp;&nbsp;&nbsp;
+                        <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</td>
+                      </tr>
+                      <tr>
+                        <td class = "member_num">현재인원 / 모집인원<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p><%= @now_user.inspect %></p>
+                          <p>   -> 현재 접속중인 유저에 대한 정보</p>
+                          <br>
+                          <p>이 방의 정보 : <%= @room_info.inspect %></p>
+                          <p>   -> 현재 접속중인 유저가 만든 방정보에 대한( 최근에 만든) 정보</p>
+                          <br>
+                          <p><%= @now_list.inspect %></p>
+                          <p>-> 현재 접속중인 유저가 어느 방에 속해있는지(list)</p>
+                          <h3><%= @mkroom.where(user_id: current_user.id).inspect %></h3>
+                         <%= @user.where(id: current_user).count(register_to_use: false) %>
+                        </td>
+                      </tr>
+                    </table>
+                    <center>
+                      <% unless @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 %> 
+                        <% if mkroom.num_of_user_join >= mkroom.num_member_limit %>
+                          <button type="button" class="btn btn-danger btn-lg">만석</button>
+                        <% else %>
+                          <form action="/taxiple/join" method="GET">
+                            <input type="hidden" name="person_1" value="<%= current_user.email %>"><!--개설자의 이메일 알기위해-->
+                            <!--<input type="hidden" name="list_num" value="<%#= mkroom.id %>"><!--참여자들의 이메일 알기위해(List와 MkRoom의 ID는 같다 -->
+                            <input type="hidden" name="room_num" value="<%= mkroom.id %>"><!--어디방의 인원수를 조정할지 방의 위치(숫자)를 확인 -->
+                            <input type="hidden" name="user_name" value="<%= current_user.email %>"><!--누가 탔는지는 고객관리 측면에서 필요하니까 따로 저장! -->
+                            
+                            
+                            <% @user.where(id: current_user.id).each do |user| %>
+                              <% if user.register_to_use == false %>
+                              <input type="submit" value="참여하기">
+                              <% else %>
+                              <h2> 현재 내가 속한 방 </h2>
+                              <% end %>
+                            <% end %> 
+                          </form>
+                        <% end %>
+                      <%# else %>
+                        <!--현재 접속중인 사용자가 방을 만든 적이 있고 && 그 방이 아직 안끝났을 때-->
+                      <% end %>
+                    </center>
+                  </div>
+                </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </center>
+</div>
+
+ <!--드롭다운 자바스크립트 부분 -->
+<script>
+//close dropdowns on outside click
+$(window).click(function(e) {
+  var $dropdown = $(e.target).closest(".dropdown");
+  if ($dropdown.length == 0 || !$dropdown.find("input").is(":checked")) {
+    $(".dropdown input:checked").prop("checked", false);
+  }
+});
+
+//close other dropdown on outside click
+$(".dropdown input").change(function(e) {
+  if ($(e.target).is(":checked")) {
+    $(".dropdown input:checked:not(#" + e.target.id + ")").prop("checked", false);
+  }
+});
+
+//on item select
+$(".dropdown li").click(function(e) {
+  var $target = $(e.target);
+  var $dropdown = $target.closest(".dropdown");
+  var $label = $dropdown.find("label");
+  var $title = $label.find("span");
+  var $toggle = $dropdown.find("input");
+
+  if ($dropdown.hasClass("init") || ($toggle.is(":checked") && !$target.hasClass("selected"))) {
+    $dropdown.removeClass("init");
+    $dropdown.find("li.selected").removeClass("selected");
+    $target.addClass("selected");
+    $dropdown.attr("data-val", ($target.attr("data-val") || $target.attr("data-val") == "") ? $target.attr("data-val") : $target.text().trim());
+    $title.text($target.attr("data-text") ? $target.attr("data-text") : $target.text().trim());
+    $label.css("width", ($title.width() + 20) + "px");
+    $toggle.prop("checked", false);
+  }
+});
+
+//initialize with 1st option
+$(".dropdown.init li:first-child").click();
+
+</script>
+
+ <!--드롭다운 자바스크립트 부분 end -->

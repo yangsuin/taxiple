@@ -1,0 +1,269 @@
+.intro {
+  background-image: url("taxi_1.png"); 
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 904px;
+}
+
+.back {
+  background-color: white;
+  border: solid 5px gray;
+}
+
+.intro_input {
+  min-height: 100px;
+}
+
+
+
+.room_num {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  text-align: center;
+  line-height: 40px;
+  font-size:20px;
+}
+
+#room_num1 {
+  background-color: orange;
+}
+
+#room_num2 {
+  background-color: yellow;
+}
+
+#room_num3 {
+  background-color: red;
+}
+
+#room_num4 {
+  background-color: green;
+}
+
+.panel-heading {
+  font-size: 20px;  
+}
+
+.room > .girl_only {
+  background-color: gray;
+  width: 60px;
+  text-align: center;
+  float: left;
+  clear: none; 
+}
+
+.room > table {
+  font-size: 35px; 
+  width: 280px;
+  height: 150px;
+  float: left;
+}
+
+.room > .member_num {
+  text-align: right;
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+
+.location_start {
+  font-size: 25px;  
+}
+
+.location_end {
+  font-size: 25px;
+}
+
+.name {
+  font-size: 18px;
+}
+
+.time {
+  font-size: 18px;
+}
+
+.member_num {
+  font-size: 25px;
+  overflow: visible;
+  position: relative;
+
+}
+
+.logo {
+  float: right;
+  overflow: visible;
+  position: relative;
+}
+
+
+/*드롭다운*/
+
+body,
+html
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+.wrapper {
+  background-color: rgba(187, 204, 221, 0.9);
+  padding-top: 5px;
+}
+/*
+.position {
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  -webkit-transform: translate3d(-50%, 0, 0);
+  -moz-transform: translate3d(-50%, 0, 0);
+  -o-transform: translate3d(-50%, 0, 0);
+  -ms-transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
+}
+*/
+
+.title {
+  text-transform: uppercase;
+}
+.dropdown {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+}
+.dropdown ul {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.dropdown > label {
+  display: inline-block;
+  vertical-align: -9px;
+  overflow: hidden;
+  cursor: pointer;
+  font-weight: bold;
+  background: #ffffff;
+  padding: 7px 10px;
+  -webkit-border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 5px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -webkit-transition: width 0.3s;
+  -moz-transition: width 0.3s;
+  -o-transition: width 0.3s;
+  transition: width 0.3s;
+}
+.dropdown > label span {
+  white-space: nowrap;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.dropdown > label i {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 30px;
+  width: 30px;
+  height: 100%;
+  text-align: center;
+  -webkit-border-radius: 0 5px 5px 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0 5px 5px 0;
+  -moz-background-clip: padding;
+  border-radius: 0 5px 5px 0;
+  background-clip: padding-box;
+
+}
+.dropdown > ul {
+  list-style: none;
+  position: absolute;
+  background: #ffffff;
+  right: 0;
+  top: 40px;
+  -webkit-border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 5px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.dropdown > ul:before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  right: 11px;
+  top: -3px;
+  -webkit-border-radius: 1px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 1px;
+  -moz-background-clip: padding;
+  border-radius: 1px;
+  background-clip: padding-box;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.dropdown > ul li {
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+  padding: 7px 10px;
+  border-bottom: 1px solid #e0e1e2;
+}
+.dropdown > ul li:first-child {
+  -webkit-border-radius: 5px 5px 0 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px 5px 0 0;
+  -moz-background-clip: padding;
+  border-radius: 5px 5px 0 0;
+  background-clip: padding-box;
+}
+.dropdown > ul li:last-child {
+  -webkit-border-radius: 0 0 5px 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0 0 5px 5px;
+  -moz-background-clip: padding;
+  border-radius: 0 0 5px 5px;
+  background-clip: padding-box;
+}
+.dropdown > ul li:last-child {
+  border-bottom: none;
+}
+.dropdown > ul li:hover {
+  background: #e0e6eb;
+}
+.dropdown input {
+  display: none;
+}
+.dropdown input:checked ~ ul {
+  opacity: 1;
+}
+.dropdown input:checked ~ ul li {
+  cursor: pointer;
+}
+.dropdown[data-val=""] label span {
+  opacity: .6;
+}
+
+#button-icon {
+}
+
+
+/*드롭다운 end*/

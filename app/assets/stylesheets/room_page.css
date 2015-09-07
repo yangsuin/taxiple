@@ -1,0 +1,60 @@
+.room_page {
+  background-image: url("taxi_1.png"); 
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.back {
+  background-color: white;
+  border: solid 5px gray;
+}
+
+.room_title {
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.room_num {
+   width: 40px;
+    height: 45px;
+    background-color: white;
+    border: solid 5px gray;
+    text-align: center;
+    font-size: 30px;
+    float: left;
+}
+
+.room_title_location {
+  font-size: 20px;  
+  text-align: left;
+  margin-left: 15%;
+}
+
+.other_info {
+  width: 80%;
+  min-height: 100px;
+  margin-left: 10%;
+  margin-right: 10%;
+  float: left;
+  border: solid 3px red;
+  clear: both;
+}
+
+/*프로파일이미지*/
+
+.profile_img {
+  width: 140px;
+  height: 190px;
+  border-radius: 20px;
+}
+
+.profile_outline {
+  border: solid 2px black;
+ /* border-radius: 20px;*/
+}
+
+.vertical-align {
+  display:table-cell;
+  vertical-align:middle;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TAXIPLE</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified JavaScript -->
+  
+  <!-- less -->
+   <!--<link rel="stylesheet/less" href="../../asset/dropdown.less" type="text/css" />-->
+   <!--<script src="https://lesscss.googlecode.com/files/less-1.0.21.min.js"></script>-->
+  
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+ 
+  <link rel="stylesheet" type="text/css" href="../../asset/intro.css">
+  <link rel="stylesheet" type="text/css" href="../../asset/taxiple.css">
+  <link rel="stylesheet" type="text/css" href="../../asset/bootstrap-theme.css">
+  <link rel="stylesheet" type="text/css" href="../../asset/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../../asset/room_page.css">
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+ 
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+    <!-- Bootstrap Core JavaScript -->
+   <script src="../../assets/bootstrap.min.js"></script>
+  <%= csrf_meta_tags %>
+  <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="navbar navbar-default" style="margin-bottom: 0px;padding-top: 5px; padding-bottom: 5px; border-bottom:">
+  <div class="container-fluid">
+     <div class="container">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <div  class="collapse navbar-collapse" id="navbarCollapse">
+               <ul>
+                 <a href="https://taxiple-seunghyum-1.c9.io/"><li><img src="../../assets/taxiple-text.png" class="nav-logo"/></li></a>
+                 &nbsp;
+                 <li class="nav navbar-nav navbar-right" style="margin-right: 50px; background: #FF9933">
+                 <% if user_signed_in? %> 
+                  <a href='/users/sign_out' style="color: white;">로그아웃하기</a><!-- 터미널 창에 rake routes라고 검색하면 내가 들어갈 수 있는 홈피 URL이 다 뜬다.-->
+                  <% else%>
+                  <a href='/users/sign_in' style="color: white;">로그인하기</a>
+                  <%end%></li>
+                 &nbsp;
+                 <li class="nav navbar-nav navbar-right" style="margin-right: 20px;"><a href="/taxiple/intro">서비스 이용하기</a></li>
+                 &nbsp;
+                 <li class="nav navbar-nav navbar-right" style="margin-right: 20px;"><a href="/taxiple/menual">이용방법</a></li>
+                 &nbsp;
+                  <% if user_signed_in? %>
+                 <li class="nav navbar-nav navbar-right" style="margin-right: 20px;"><h4 style="margin-top: 30px;">안녕하세요 <%= current_user.email %></h4></li>
+                 <% end %>
+              </ul>
+           </div>
+      </div>
+   </div>
+</nav>
+  
+<%= yield %>
+   
+</body>
+</html>

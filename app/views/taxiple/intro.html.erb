@@ -1,0 +1,294 @@
+<div class = "intro">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <center>
+    <div class = "container">
+      <div class = "back" id = "intro_input">   
+        <center>
+          <!-- 드롭다운 -->
+          <div class="wrapper">
+            <div class="position">
+              <span class="title">학교와 경로를 선택해주세요.</span>
+              <div class="dropdown init">
+                <input id="toggle-area" type="checkbox" />
+                <label for="toggle-area" >
+                  <span>지역 ▾</span>
+                </label>
+                <ul style="z-index: 50; padding-left: 0px;">
+                  <li data-text="지역 ▾" data-val="">전체</li>
+                  <li>서울특별시</li>
+                  <li>전라남도</li>
+                  <li>경상북도</li>
+                  <li>경상남도</li>
+                  <li>전라북도</li>
+                  <li>경기도</li>
+                </ul>
+              </div>
+              <div class="dropdown init">
+                <input id="toggle-university" type="checkbox" />
+                <label for="toggle-university">
+                  <span>학교 ▾</span>
+                </label>
+                <ul style="z-index: 9999; padding-left: 0px;">
+                  <li data-text="학교 ▾" data-val="">전체</li>
+                  <li>서울대학교</li>
+                  <li>연세대학교</li>
+                  <li>고려대학교</li>
+                  <li>이화여자대학교</li>
+                  <li>숙명여자대학교</li>
+                  <li>단국대학교</li>
+                </ul>
+              </div>
+              <div class="dropdown init">
+                <input id="toggle-course" type="checkbox"/>
+                <label for="toggle-course" >
+                  <span>경로 ▾</span>
+                </label>
+                <ul style="z-index: 50;">
+                  <li data-text="경로 ▾" data-val="">전체</li>
+                  <li>단국대학교 -> 죽전역</li>
+                  <li>죽전역 -> 단국대학교</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- 드롭다운 end -->
+        </center>
+        <br>
+        <center>
+          <form class="form-inline">
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputEmail3">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail3" placeholder="이름">
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputPassword3">text</label>
+              <input type="text" class="form-control" id="exampleInputPassword3" placeholder="탑승시간">
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="checkbox">
+              <label><input type="checkbox" name="girl_only" value = "girl">여성전용</label>
+              <i class="fa fa-female" style = "color: red;"></i>
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-default">방만들기</button>
+          </form>
+        </center>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class = "container">
+      <div class = "back" id = "intro_rooms">   
+        <br>
+        <br>
+        <div class = "row">
+          <div class = "col-md-4">
+            <a href = "/taxiple/room_page">
+              <div class = "panel panel-default room" id = "room1">
+                <div class = "panel-heading">1. 서울대 - 서울대입구역</div>
+                <div class = "panel-body" align = "left">
+                  <div class = "logo">
+                    <img src = "http://www.snu.ac.kr/images/common/img/img01_mark_ab0102.gif" width = "40px">
+                  </div>
+                  <table>
+                    <tr>
+                      <td class = "location_start">출발 :</td>
+                      <td style = "font-size: 25px;">서울대학교</td>
+                    </tr>
+                    <tr>
+                      <td class = "location_end">도착 :</td>
+                      <td style = "font-size: 25px;">서울대입구역</td>
+                    </tr>
+                    <tr>
+                      <td class = "name">이름 :</td>
+                      <td style = "font-size: 18px;">문승현</td>
+                    </tr>
+                    <tr>
+                      <td class = "time">시간 :</td>
+                      <td style = "font-size: 18px;">15:30</td>
+                    </tr>
+                  </table>
+                  <div class = "member_num">3/4</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class = "col-md-4">
+            <a href = "/taxiple/room_page">
+              <div class = "panel panel-default room" id = "room2">
+                <div class = "panel-heading">2. 죽전역 - 단국대학교
+                  <i class="fa fa-female" style = "color: red;"></i>
+                </div>
+                <div class = "panel-body" align = "left">
+                  <div class = "logo">
+                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNTfDO75WghcgOLp3LbX2CfzUVzlnZbA2lKWWfZJtY--CP3O8y" width = "40px">
+                  </div>
+                  <table>
+                    <tr>
+                      <td class = "location_start">출발 :</td>
+                      <td style = "font-size: 25px;">죽전역</td>
+                    </tr>
+                    <tr>
+                      <td class = "location_end">도착 :</td>
+                      <td style = "font-size: 25px;">단국대학교</td>
+                    </tr>
+                    <tr>
+                      <td class = "name">이름 :</td>
+                      <td style = "font-size: 18px;">김우정</td>
+                    </tr>
+                    <tr>
+                      <td class = "time">시간 :</td>
+                      <td style = "font-size: 18px;">8:40</td>
+                    </tr>
+                  </table>
+                  <p class = "member_num">1/2</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class = "col-md-4">
+            <a href = "/taxiple/room_page">
+              <div class = "panel panel-default room" id = "room2">
+                <div class = "panel-heading">3. 서울여자대학교 - 태릉입구역
+                  <i class="fa fa-female" style = "color: red;"></i>
+                </div>
+                <div class = "panel-body" align = "left">
+                  <div class = "logo">
+                    <img src = "data:image/png;base64,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" width = "40px">
+                  </div>
+                  <table>
+                    <tr>
+                      <td class = "location_start">출발 :</td>
+                      <td style = "font-size: 25px;">서울여자대학교</td>
+                    </tr>
+                    <tr>
+                      <td class = "location_end">도착 :</td>
+                      <td style = "font-size: 25px;">태릉입구역</td>
+                    </tr>
+                    <tr>
+                      <td class = "name">이름 :</td>
+                      <td style = "font-size: 18px;">이유빈</td>
+                    </tr>
+                    <tr>
+                      <td class = "time">시간 :</td>
+                      <td style = "font-size: 18px;">12:00</td>
+                    </tr>
+                  </table>
+                  <p class = "member_num">1/3</p>
+                </div>
+              </div>  
+            </a>
+          </div>
+          <div class = "col-md-4">
+            <a href = "/taxiple/room_page">
+            <div class = "panel panel-default room" id = "room2">
+              <div class = "panel-heading">4. 고려대학교 - 청량리역
+              </div>
+              <div class = "panel-body" align = "left">
+                <div class = "logo">
+                  <img src = "data:image/png;base64,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" width = "40px">
+                </div>
+                <table>
+                  <tr>
+                    <td class = "location_start">출발 :</td>
+                    <td style = "font-size: 25px;">고려대학교</td>
+                  </tr>
+                  <tr>
+                    <td class = "location_end">도착 :</td>
+                    <td style = "font-size: 25px;">청량리역</td>
+                  </tr>
+                  <tr>
+                    <td class = "name">이름 :</td>
+                    <td style = "font-size: 18px;">이종한</td>
+                  </tr>
+                  <tr>
+                    <td class = "time">시간 :</td>
+                    <td style = "font-size: 18px;">18:10</td>
+                  </tr>
+                </table>
+                <p class = "member_num">2/4</p>
+              </div>
+            </div>  
+            </a>
+          </div>
+          <div class = "col-md-4">
+            <a href = "/taxiple/room_page">
+              <div class = "panel panel-default room" id = "room2">
+                <div class = "panel-heading">5. 회기역 - 의료원
+                </div>
+                <div class = "panel-body" align = "left">
+                  <div class = "logo">
+                    <img src = "http://www.allthatspeaker.com/data/file/calendar/2083599917_Q0NAawih_EAB2BDED9DACEB8C80ED9599EAB590.jpg" width = "40px">  
+                  </div>
+                  <table>
+                    <tr>
+                      <td class = "location_start">출발 :</td>
+                      <td style = "font-size: 25px;">회기역</td>
+                    </tr>
+                    <tr>
+                      <td class = "location_end">도착 :</td>
+                      <td style = "font-size: 25px;">의료원</td>
+                    </tr>
+                    <tr>
+                      <td class = "name">이름 :</td>
+                      <td style = "font-size: 18px;">박형규</td>
+                    </tr>
+                    <tr>
+                      <td class = "time">시간 :</td>
+                      <td style = "font-size: 18px;">15:00</td>
+                    </tr>
+                  </table>
+                  <p class = "member_num">3/4</p>
+                </div>
+              </div>  
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+</div>
+<!-- 드롭다운 자바스크립트 부분 -->
+<script>
+//close dropdowns on outside click
+$(window).click(function(e) {
+  var $dropdown = $(e.target).closest(".dropdown");
+  if ($dropdown.length == 0 || !$dropdown.find("input").is(":checked")) {
+    $(".dropdown input:checked").prop("checked", false);
+  }
+});
+
+//close other dropdown on outside click
+$(".dropdown input").change(function(e) {
+  if ($(e.target).is(":checked")) {
+    $(".dropdown input:checked:not(#" + e.target.id + ")").prop("checked", false);
+  }
+});
+
+//on item select
+$(".dropdown li").click(function(e) {
+  var $target = $(e.target);
+  var $dropdown = $target.closest(".dropdown");
+  var $label = $dropdown.find("label");
+  var $title = $label.find("span");
+  var $toggle = $dropdown.find("input");
+
+  if ($dropdown.hasClass("init") || ($toggle.is(":checked") && !$target.hasClass("selected"))) {
+    $dropdown.removeClass("init");
+    $dropdown.find("li.selected").removeClass("selected");
+    $target.addClass("selected");
+    $dropdown.attr("data-val", ($target.attr("data-val") || $target.attr("data-val") == "") ? $target.attr("data-val") : $target.text().trim());
+    $title.text($target.attr("data-text") ? $target.attr("data-text") : $target.text().trim());
+    $label.css("width", ($title.width() + 20) + "px");
+    $toggle.prop("checked", false);
+  }
+});
+
+//initialize with 1st option
+$(".dropdown.init li:first-child").click();
+
+</script>
+<!-- 드롭다운 자바스크립트 부분 end -->
