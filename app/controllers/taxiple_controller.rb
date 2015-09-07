@@ -1,6 +1,6 @@
 class TaxipleController < ApplicationController
  
-  before_action :authenticate_user!, except: [:page4] #로그인한 유저만 등록 가능하게함.
+  before_action :authenticate_user!, except: [:index, :intro, :room_page, :menual] #로그인한 유저만 등록 가능하게함.
   def index
   end
 
