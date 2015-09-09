@@ -27,7 +27,7 @@
     <!--
     -참가자 화면-
     1. 현재 접속중인 사용자가 참여하기를 눌렀을 경우-->
-      <% if !@list.where(person_2: current_user.email).empty? %> <!--person_2에 참가했을 경우 -->
+      <% if !@list.where(person_2: current_user.email).empty? or !@list.where(person_3: current_user.email).empty? or !@list.where(person_4: current_user.email).empty? %> <!--person_2에 참가했을 경우 -->
         <% @mkroom.where(id: @p).each do |p| %>  
           <div class="container">
             <div class = "back" style="padding-bottom: 30px;">   

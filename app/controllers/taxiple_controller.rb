@@ -90,13 +90,14 @@ class TaxipleController < ApplicationController
             list.save
           end
         end
+        User.where(id: current_user.id).each do |user|
+          user.list_id = params[:room_num]
+          user.register_to_use = true
+          user.save
+        end
       end
     end
-    User.where(id: current_user.id).each do |user|
-      user.list_id = params[:room_num]
-      user.register_to_use = true
-      user.save
-    end
+    
     redirect_to "/taxiple/page4"
   end
   
