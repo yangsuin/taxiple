@@ -192,7 +192,7 @@
                             
                             <% @user.where(id: current_user.id).each do |user| %>
                               <% if user.register_to_use == false %>
-                              <input type="submit" value="참여하기">
+                              <input type="submit" value="참여하기" id="<%= mkroom.finish %>">
                               <% else %>
                               <h2> 현재 내가 속한 방 </h2>
                               <% end %>
@@ -216,6 +216,16 @@
  <!--드롭다운 자바스크립트 부분 -->
 <script>
 //close dropdowns on outside click
+$(document).ready(function() {
+    $("#true").click(
+      function() {
+        alert("참여하시기 바로 전에 방이 다 찼습니다. 다른 방을 이용해주세요.");
+      }
+      );
+  });
+
+
+
 $(window).click(function(e) {
   var $dropdown = $(e.target).closest(".dropdown");
   if ($dropdown.length == 0 || !$dropdown.find("input").is(":checked")) {

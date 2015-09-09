@@ -8,8 +8,6 @@ class TaxipleController < ApplicationController
   end
   
   def room_page
-   
-    
   end
   
   def menual
@@ -73,9 +71,10 @@ class TaxipleController < ApplicationController
   
   def join    
     MkRoom.where(id: params[:room_num].to_i).each do |mkroom|
-      mkroom.num_of_user_join += 1
-      if mkroom.num_of_user_join = mkroom.num_member_limit
+      if mkroom.num_of_user_join >= mkroom.num_member_limit
         mkroom.finish = true
+      else
+        mkroom.num_of_user_join += 1
       end
       mkroom.save
     end
@@ -139,13 +138,11 @@ class TaxipleController < ApplicationController
     
     User.where(list_id: @list_id).each do |user|
       user.register_to_use = false
-      @id_of_user = user.id
+      MkRoom.where(user_id: user.id).each do |mkroom|
+        mkroom.num_of_user_join -= 1
+        mkroom.save
+      end
       user.save
-    end
-    
-    MkRoom.where(user_id: @id_of_user).each do |mkroom|
-      mkroom.num_of_user_join -= 1
-      mkroom.save
     end
     
     redirect_to "/taxiple/page4"
