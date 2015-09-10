@@ -1,3 +1,139 @@
+ <div class="container">
+<div class="row">
+        <div class="col s12 m6">
+          <div class="card lime lighten-5">
+            <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false)%>
+    <!-- 
+        -방장 화면-
+        1.현재 접속중인 사용자가 방을 만든 적이 있을 때(단, MkRoom이 destroy되면 그 줄이 날아가기때문에 나갔던 방을 계산할 필요가 없다.)
+        2. 그방이 끝나지도 않았을 때
+        3. 현재 접속중인 사용자가 다른 방에 참여하지 않은 상태일때 -->
+      <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
+          <div class="container">
+            <div class="card-content black-text">
+              <span class="card-title black-text"><%= mkroom.id %>. <%= mkroom.course %></span> 
+              <p>방번호 : <%= mkroom.id %></p>
+              <p>경로 : <%= mkroom.course %></p>
+              <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%></p>
+              <p>인원수 : <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %> </p>
+              <div class="card-action">
+                <form action="/taxiple/delete" method="GET">
+                  <input type="hidden" name="mk_room_num" value="<%= mkroom.id %>">
+                  <button class="btn waves-effect waves-light" type="submit">방 나가기</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    <% elsif @register_user == true %>
+    <!--
+    -참가자 화면-
+    1. 현재 접속중인 사용자가 참여하기를 눌렀을 경우-->
+      <% if !@list.where(person_2: current_user.email).empty? or !@list.where(person_3: current_user.email).empty? or !@list.where(person_4: current_user.email).empty? %> <!--person_2에 참가했을 경우 -->
+        <% @mkroom.where(id: @p).each do |p| %>  
+          <div class="container">
+            <div class = "back" style="padding-bottom: 30px;">   
+              <p>방번호 : <%= p.id %></p>
+              <p>경로 : <%= p.course %></p>
+              <p>시간 : <%= p.user_hour%> : <%= p.user_minute%></p>
+              <p>인원수 : <%= p.num_of_user_join %> / <%= p.num_member_limit %> </p>
+              <form action="/taxiple/getout" method="GET">
+                <input type="hidden" name="mk_room_num" value="<%= p.id %>">
+                <input type="submit" value="방 나가기">
+              </form>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+    <!--
+    -구경꾼-
+    1. 반대로 현재 접속중인 사용자가 방을 만든적이 없거나 그방이 끝났을때-->
+      <div class = "container">
+        <div class = "back" style="padding-bottom: 30px;">   
+          <center>
+             <!--드롭다운 -->
+            <div class="wrapper">
+              <div class="position">
+                <h4>경로와 시간, 여성전용 여부, 인원 수를<br>선택해주세요!</h4>
+              </div>
+            </div>
+             <!--드롭다운 end -->
+          </center>
+          <br>
+          <div style="font-size: 20px; line-height: 200%;">
+            <center>
+              <%#= form_tag "create",class: "form-inline" do %>
+             <form action="/taxiple/create" method="GET">
+                경로 선택 : 
+                <select name="course">
+                  <option value="경로">경로</option>
+                  <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
+                  <option value="서울대입구역 -> 서울대">서울대입구역 -> 서울대</option>
+                </select>
+                <br>
+                시간 선택:
+                <select name="user_hour">
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                 </select> :
+                 <select name="user_minute">
+                    <option value="00">00</option>
+                    <option value="05">05</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                  </select>까지
+                  <br>
+                  <div>
+                  <input type="radio" name="girl_only" value="girl">여성전용
+                  <i class="fa fa-female" style = "color: red;"></i>&nbsp;&nbsp;
+                  <input type="radio" name="girl_only" value="common" checked="checked">일반
+                  <i class="fa fa-female" style = "color: red;"></i>
+                  <i class="fa fa-male" style = "color: blue;"></i>
+                  </div>
+                  인원 수 : 
+                  <select name="num_member_limit">
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                  </select>
+                  <br><br>
+                <input type="hidden" value=true name="register_to_use">
+                <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
+                <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
+                <% end %>
+                <input type="submit" value="방만들기" class="btn btn-warning btn-lg">
+              <%# end %>
+              </form>
+            </center>
+          </div>
+        </div>
+      </div>
+    <% end %>
+          </div>
+        </div>
+      </div>
+      </div>
 <div class = "intro">
  <section style="margin: 0px; padding:10px;"></section>
   <center>
