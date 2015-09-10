@@ -164,4 +164,48 @@ class TaxipleController < ApplicationController
     
     redirect_to "/taxiple/page4"
   end
+  def make_room
+   
+    @mkroom = MkRoom.all
+    
+    @user = User.all
+    @list = List.all
+    #입력창에서 방장 / 참가자 / 구경꾼에 따라 보여주는 화면 설정
+    if !@list.where(person_2: current_user.email).empty?
+      @list.where(person_2: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    elsif !@list.where(person_3: current_user.email).empty?
+      @list.where(person_3: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    elsif !@list.where(person_4: current_user.email).empty?
+      @list.where(person_4: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    end
+    render layout: "materialize"
+  end
+  
+  def my_room
+    @mkroom = MkRoom.all
+    
+    @user = User.all
+    @list = List.all
+    #입력창에서 방장 / 참가자 / 구경꾼에 따라 보여주는 화면 설정
+    if !@list.where(person_2: current_user.email).empty?
+      @list.where(person_2: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    elsif !@list.where(person_3: current_user.email).empty?
+      @list.where(person_3: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    elsif !@list.where(person_4: current_user.email).empty?
+      @list.where(person_4: current_user.email).each do |list|
+        @p = list.mk_room_id
+      end
+    end
+    render layout: "materialize"
+  end
 end

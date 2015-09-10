@@ -19,21 +19,26 @@
 <nav class="indigo yellow accent-1">
   <div class="nav-wrapper">
    <ul class="right hide-on-med-and-down">
-    <li><a class="dropdown-button" data-constrainwidth="false" data-beloworigin="true" data-activates="about-drop" href="#!">About<i class="material-icons left">arrow_drop_down</i></a></li>
-    <li><a class="modal-trigger" href="#signup"><!--아이콘-->내 정보</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
-    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
+    <li><a class="modal-trigger" href="/taxiple/my_room"><!--아이콘-->내가 들어간 방</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
+    <% if @mkroom.count(user_id: current_user.id) == 0 && @user.where(id: current_user).count(register_to_use: false) == 1%>
+      <li><a class="modal-trigger" href="/taxiple/make_room"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
+    <% end %>
     <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
     <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->신고하기</a></li>
     <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->관련 법률</a></li>
-</ul>
-
-<ul id="slide-out" class="side-nav">
-    <li><a href="#">About</a></li>
-    <li><a href="#">Signup</a></li>
-    <li><a href="#">Sign In</a></li>
-</ul>
-
-<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+    <li><a class="modal-trigger" href="/taxiple/page4"><!--아이콘-->대기방 보기</a></li>
+  </ul>
+  
+  <ul id="slide-out" class="side-nav">
+      <li><a href="/taxiple/my_room">내가 들어간 방</a></li>
+      <% if @mkroom.count(user_id: current_user.id) == 0 && @user.where(id: current_user).count(register_to_use: false) == 1%>
+        <li><a href="/taxiple/make_room">방 만들기</a></li>
+      <% end %>
+      <li><a href="/taxiple/page4">대기방 보기</a></li>
+      <li><a href="#">신고하기</a></li>
+      <li><a href="#">관련 법률</a></li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png" style="height: 55px; width:40px; margin-left: 10px;"/></a>
   </div>
 </nav>
 <%= yield %>
@@ -45,7 +50,13 @@
     $('.button-collapse').sideNav();
 
   }); // end of document ready
-})(jQuery); // end of jQuery name space</script>
-</body>
+})(jQuery); // end of jQuery name space
+
+// 드롭다운 jquery - materialize
+$(document).ready(function() {
+    $('select').material_select();
+  });</script>
+
+
 </body>
 </html>
