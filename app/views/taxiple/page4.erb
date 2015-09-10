@@ -3,7 +3,7 @@
   <center>
   <!--@user.where(id: current_user).count(register_to_use: false) 이거 넣어서 만약 참여한다면 자신이 속한 방의 정보를 보여주고 그다음 밑의 줄을 else로 처리해서 하기 -->
     
-    <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false)%> 
+    <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false)%>
     <!-- 
         -방장 화면-
         1.현재 접속중인 사용자가 방을 만든 적이 있을 때(단, MkRoom이 destroy되면 그 줄이 날아가기때문에 나갔던 방을 계산할 필요가 없다.)

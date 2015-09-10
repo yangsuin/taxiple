@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TAXIPLE</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Site's designed for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <!--Import jQuery before materialize.js-->
+  <link rel="stylesheet" type="text/css" href="../../assets/materialize.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="../../assets/materialize.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../assets/intro.css">
+</head>
+
+<body>
+<!-- 네비게이션 바 -->
+
+<nav class="indigo yellow accent-1">
+  <div class="nav-wrapper">
+   <ul class="right hide-on-med-and-down">
+    <li><a class="dropdown-button" data-constrainwidth="false" data-beloworigin="true" data-activates="about-drop" href="#!">About<i class="material-icons left">arrow_drop_down</i></a></li>
+    <li><a class="modal-trigger" href="#signup"><!--아이콘-->내 정보</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
+    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
+    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
+    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->신고하기</a></li>
+    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->관련 법률</a></li>
+</ul>
+
+<ul id="slide-out" class="side-nav">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Signup</a></li>
+    <li><a href="#">Sign In</a></li>
+</ul>
+
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+<%= yield %>
+
+ <script>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space</script>
+</body>
+</body>
+</html>

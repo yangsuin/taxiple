@@ -1,5 +1,5 @@
 class TaxipleController < ApplicationController
- 
+  
   before_action :authenticate_user!, except: [:index, :intro, :room_page, :menual] #로그인한 유저만 등록 가능하게함.
   def index
   end
@@ -39,6 +39,7 @@ class TaxipleController < ApplicationController
   end
   
   def page4
+    
     @mkroom = MkRoom.all    
     # @room_info = MkRoom.where(user_id: current_user.id)
     @room_info = MkRoom.where(user_id: current_user.id)
@@ -67,6 +68,7 @@ class TaxipleController < ApplicationController
         @p = list.mk_room_id
       end
     end
+    render layout: "materialize"
   end
   
   def join    
