@@ -10,17 +10,21 @@
   <link rel="stylesheet" type="text/css" href="../../assets/materialize.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="../../assets/materialize.js"></script>
+  <script type="text/javascript" src="../../assets/make_room.js"></script>
+  <script type="text/javascript" src="../../assets/page_4.js"></script>
   <link rel="stylesheet" type="text/css" href="../../assets/page_4.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/make_room.css">
 </head>
 
-<body>
+<body onload="updateClock(); setInterval('updateClock()', 1000 )">
 <!-- 네비게이션 바 -->
 
-<nav class="indigo yellow accent-1">
+<nav class="indigo yellow darken-2">
   <div class="nav-wrapper">
    <ul class="right hide-on-med-and-down">
+   <li><a class="modal-trigger" href="#sign-in"><!--아이콘--><%= current_user.email %></a></li>
     <li><a class="modal-trigger" href="/taxiple/my_room"><!--아이콘-->내가 들어간 방</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
-    <% if @mkroom.count(user_id: current_user.id) == 0 && @user.where(id: current_user).count(register_to_use: false) == 1%>
+    <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
       <li><a class="modal-trigger" href="/taxiple/make_room"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
     <% end %>
     <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
@@ -31,7 +35,7 @@
   
   <ul id="slide-out" class="side-nav">
       <li><a href="/taxiple/my_room">내가 들어간 방</a></li>
-      <% if @mkroom.count(user_id: current_user.id) == 0 && @user.where(id: current_user).count(register_to_use: false) == 1%>
+      <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
         <li><a href="/taxiple/make_room">방 만들기</a></li>
       <% end %>
       <li><a href="/taxiple/page4">대기방 보기</a></li>
@@ -39,24 +43,18 @@
       <li><a href="#">관련 법률</a></li>
   </ul>
   <a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png" style="height: 55px; width:40px; margin-left: 10px;"/></a>
+  <span id="clock">&nbsp;</span>
+  <!-- Dropdown Trigger -->
+  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>정렬</a>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="/taxiple/page4_time">시간</a></li>
+    <li><a href="/taxiple/page4">급구</a></li>
+  </ul>
   </div>
 </nav>
 <%= yield %>
-
- <script>
-    (function($){
-  $(function(){
-
-    $('.button-collapse').sideNav();
-
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
-
-// 드롭다운 jquery - materialize
-$(document).ready(function() {
-    $('select').material_select();
-  });</script>
-
 
 </body>
 </html>

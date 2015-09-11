@@ -17,16 +17,18 @@
                 <%#= form_tag "create",class: "form-inline" do %>
                <form action="/taxiple/create" method="GET">
                   <div class="input-field">
-                    <select name="course">
-                      <option value="" disabled selected>경로</option>
+                    <select name="course" size="4" style="width:65px;color:#f98ad3;">
+                      <option value="서울대입구역 -> 서울대" disabled selected>서울대입구역 -> 서울대</option>
                       <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
                       <option value="서울대입구역 -> 서울대">서울대입구역 -> 서울대</option>
                     </select>
+                    <label>Route</label>
                   </div>
                   <br>
+                  
                   <div class="input-field">
-                    <select name="user_hour">
-                      <option value="" disabled selected>시</option>
+                    <select name="user_hour" size="4" style="width:65px;color:#f98ad3;">
+                      <option value="<%= @time.hour %>" selected><%= @time.hour %></option>
                       <option value="7">07</option>
                       <option value="8">08</option>
                       <option value="9">09</option>
@@ -43,10 +45,11 @@
                       <option value="20">20</option>
                       <option value="21">21</option>
                     </select>
+                    <label>Hour</label>
                   </div> 
                   <div class="input-field">
                     <select name="user_minute">
-                      <option value="" disabled selected>분</option>
+                      <option value="<%= @minu %>" selected><%= @minu %></option>
                       <option value="00">00</option>
                       <option value="05">05</option>
                       <option value="10">10</option>
@@ -60,6 +63,7 @@
                       <option value="50">50</option>
                       <option value="55">55</option>
                     </select>
+                    <label>Minute</label>
                   </div>
                     <br>
                     <div>
@@ -70,11 +74,12 @@
                     </div>
                   <div class="input-field">
                     <select name="num_member_limit">
-                      <option value="" disabled selected>인원수</option>
-                      <option value="3">2명</option>
+                      <option value="3" selected>3명</option>
+                      <option value="2">2명</option>
                       <option value="3">3명</option>
                       <option value="4">4명</option>
                     </select>
+                    <label>Member</label>
                   </div>
                     <br><br>
                   <input type="hidden" value=true name="register_to_use">
@@ -93,10 +98,3 @@
     </div>
   </div>
 </div>
-<div class="input-field">
-    <select name="course">
-      <option value="" disabled selected>경로</option>
-      <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
-      <option value="서울대입구역 -> 서울대">서울대입구역 -> 서울대</option>
-    </select>
-  </div>

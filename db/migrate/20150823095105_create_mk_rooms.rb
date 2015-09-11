@@ -4,8 +4,8 @@ class CreateMkRooms < ActiveRecord::Migration
       #방만들기에 필요한 요소
       t.belongs_to :user#mk_rooms가 어디에 속해있는지 알려주기위해...이것은 규칙
       t.string :course
-      t.string :user_hour
-      t.string :user_minute
+      t.integer :user_hour
+      t.integer :user_minute
       t.string :girl_only      
       
       #방이 완료 됐는지

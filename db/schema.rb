@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20150904172801) do
   create_table "mk_rooms", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "course"
-    t.string   "user_hour"
-    t.string   "user_minute"
+    t.integer  "user_hour"
+    t.integer  "user_minute"
     t.string   "girl_only"
     t.boolean  "finish",           default: false
     t.integer  "num_member_limit"
