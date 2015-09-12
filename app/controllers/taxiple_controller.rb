@@ -151,17 +151,17 @@ class TaxipleController < ApplicationController
 
     List.where(mk_room_id: params[:mk_room_num]).each do |list|## @num은 MkRoom의 id를 가져오기 위함
       list.destroy
-      User.where(email: list.person_2).each do |x|
+      User.where(:email => [list.person_2, list.person_3, list.person_4]).each do |x|
         x.register_to_use = false
         x.save
-      end
-      User.where(email: list.person_3).each do |x|
-        x.register_to_use = false
-        x.save
-      end
-      User.where(email: list.person_4).each do |x|
-        x.register_to_use = false
-        x.save
+      # end
+      # User.where(email: list.person_3).each do |x|
+      #   x.register_to_use = false
+      #   x.save
+      # end
+      # User.where(email: list.person_4).each do |x|
+      #   x.register_to_use = false
+      #   x.save
       end
     end
     redirect_to "/taxiple/page4"
