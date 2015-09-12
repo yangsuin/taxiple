@@ -71,14 +71,18 @@ class TaxipleController < ApplicationController
   end
   
   def page4_time
-    #시간 설정 
-    Time.zone = 'Seoul'
-    @time = Time.zone.now
-    
     @mkroom = MkRoom.all    
     # @room_info = MkRoom.where(user_id: current_user.id)
     @room_info = MkRoom.where(user_id: current_user.id)
     #@mkroom=MkRoom.where(user_id: 1).uniq
+    
+     #현재 시간 설정  for 비교
+    Time.zone = 'Seoul'
+    @time = Time.zone.now
+    @time_hour = @time.hour.to_i * 60
+    @now_time_compare = @time_hour + @time.min.to_i
+    #유저가 입력한 시간 설정 for 비교는 page4_time 페이지 자체에 있음
+    
     @now_user = User.where(id: current_user.id)
     
     @now_user.each do |x|
@@ -205,6 +209,7 @@ class TaxipleController < ApplicationController
     #시간 설정 
     Time.zone = 'Seoul'
     @time = Time.zone.now
+    
     @mkroom = MkRoom.all
     if @time.min % 5 > 0
       @minu = @time.min / 5 * 5 + 5

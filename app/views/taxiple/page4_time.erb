@@ -63,6 +63,8 @@
   <% end %>
 <% end %>
 <% @mkroom.order("user_hour, user_minute").each do |mkroom| %> <!--대기중인 방을 출발 시간 대한 정보를 기준으로 분류해서 뿌리기 위한 루비문법-->
+  <% @user_time_compare = mkroom.user_hour.to_i * 60 + mkroom.user_minute.to_i %>  
+  <% if @now_time_compare < @user_time_compare %>
   <%# if @time.hour - mkroom.user_hour.to_i == 0 %>
   <div class = "container">
     <div class="card lime lighten-5"> 
@@ -140,7 +142,7 @@
       </div>
     </div>
   </div>
-  <%# end %>
+  <% end %>
 <% end %>
 
  <!--드롭다운 자바스크립트 부분 -->
