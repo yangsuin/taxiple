@@ -17,7 +17,11 @@
                 <span class="card-title black-text"><%= mkroom.id %>. <%= mkroom.course %></span> 
                 <p>방번호 : <%= mkroom.id %></p>
                 <p>경로 : <%= mkroom.course %></p>
-                <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%></p>
+                <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
+                  <p>시간 : <%= mkroom.user_hour %> : <%= mkroom.user_minute %>까지</p>
+                <% else %>
+                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                <% end %>
                 <p>인원수 : <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %> </p>
                 <div class="card-action">
                   <form action="/taxiple/delete" method="GET">
@@ -48,7 +52,11 @@
                 <span class="card-title black-text"><%= p.id %>. <%= p.course %></span>
                 <p>방번호 : <%= p.id %></p>
                 <p>경로 : <%= p.course %></p>
-                <p>시간 : <%= p.user_hour%> : <%= p.user_minute%></p>
+                <% if @t < (p.created_at.day * 24 * 60 + p.created_at.hour * 60 + p.created_at.min) %>
+                  <p>시간 : <%= p.user_hour %> : <%= p.user_minute %>까지</p>
+                <% else %>
+                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                <% end %>
                 <p>인원수 : <%= p.num_of_user_join %> / <%= p.num_member_limit %> </p>
                 <form action="/taxiple/getout" method="GET">
                   <input type="hidden" name="mk_room_num" value="<%= p.id %>">
@@ -90,8 +98,11 @@
                   <% end %>
                 </tr>
                 <tr>
-                  <td class = "time">시간&nbsp;&nbsp;&nbsp;
-                    <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</td>
+                  <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
+                    <p>시간 : <%= mkroom.user_hour %> : <%= mkroom.user_minute %>까지</p>
+                  <% else %>
+                    <p>시간 : <span style="color: red;">지금 바로</span></p>
+                  <% end %>
                 </tr>
                 <tr>
                   <td class = "member_num">현재인원 / 모집인원<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,7 +1,7 @@
 
 <!--급구 순서대로 정렬--->
 
-<% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false) == 1%>
+<% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false) == 1 %>
 <!-- asndaskdl
 -방장 화면-
 1.현재 접속중인 사용자가 방을 만든 적이 있을 때(단, MkRoom이 destroy되면 그 줄이 날아가기때문에 나갔던 방을 계산할 필요가 없다.)
@@ -17,7 +17,11 @@
                 <span class="card-title black-text"><%= mkroom.id %>. <%= mkroom.course %></span> 
                 <p>방번호 : <%= mkroom.id %></p>
                 <p>경로 : <%= mkroom.course %></p>
-                <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%></p>
+                <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
+                  <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</p>
+                <% else %>
+                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                <% end %>
                 <p>인원수 : <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %> </p>
                 <div class="card-action">
                   <form action="/taxiple/delete" method="GET">
@@ -36,9 +40,8 @@
       -참가자 화면-
       1. 현재 접속중인 사용자가 참여하기를 눌렀을 경우-->
 <%# elsif !@list.where(person_2: current_user.email).empty? and @list.where(person_3: current_user.email).empty? and @list.where(person_4: current_user.email).empty? %>
-
 <% else %> <!----person_2 or 3 or 4에 참가했을 경우-- -->
-  <% @mkroom.where(id: @p).each do |p| %>  
+  <% @mkroom.where(id: @list_mkroom_id).each do |p| %>
     <div class="container">
       <div class="row">
         <div class="col s12 m6">
@@ -48,7 +51,11 @@
                 <span class="card-title black-text"><%= p.id %>. <%= p.course %></span>
                 <p>방번호 : <%= p.id %></p>
                 <p>경로 : <%= p.course %></p>
-                <p>시간 : <%= p.user_hour%> : <%= p.user_minute%></p>
+                <% if @t < (p.created_at.day * 24 * 60 + p.created_at.hour * 60 + p.created_at.min) %>
+                  <p>시간 : <%= p.user_hour%> : <%= p.user_minute%>까지</p>
+                <% else %>
+                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                <% end %>
                 <p>인원수 : <%= p.num_of_user_join %> / <%= p.num_member_limit %> </p>
                 <form action="/taxiple/getout" method="GET">
                   <input type="hidden" name="mk_room_num" value="<%= p.id %>">
@@ -91,7 +98,11 @@
                 </tr>
                 <tr>
                   <td class = "time">시간&nbsp;&nbsp;&nbsp;
-                    <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</td>
+                  <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
+                    <p>시간 : <%= mkroom.user_hour %> : <%= mkroom.user_minute %>까지</p>
+                  <% else %>
+                    <p>시간 : <span style="color: red;">지금 바로</span></p>
+                  <% end %>
                 </tr>
                 <tr>
                   <td class = "member_num">현재인원 / 모집인원<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

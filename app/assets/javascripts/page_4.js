@@ -38,3 +38,4 @@ function updateClock ( )
     // Update the time display
     document.getElementById("clock").firstChild.nodeValue = currentTimeString;
   }
+  

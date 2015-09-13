@@ -39,6 +39,11 @@ class TaxipleController < ApplicationController
   end
   
   def page4 #인원 긊구 순으로 정렬
+    Time.zone = 'Seoul'
+    @time = Time.zone.now
+    @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min
+    
+    
     @mkroom = MkRoom.all    
     # @room_info = MkRoom.where(user_id: current_user.id)
     @room_info = MkRoom.where(user_id: current_user.id)
@@ -56,21 +61,25 @@ class TaxipleController < ApplicationController
     #입력창에서 방장 / 참가자 / 구경꾼에 따라 보여주는 화면 설정
     if !@list.where(person_2: current_user.email).empty?
       @list.where(person_2: current_user.email).each do |list|
-        @p = list.mk_room_id
+        @list_mkroom_id = list.mk_room_id
       end
     elsif !@list.where(person_3: current_user.email).empty?
       @list.where(person_3: current_user.email).each do |list|
-        @p = list.mk_room_id
+        @list_mkroom_id = list.mk_room_id
       end
     elsif !@list.where(person_4: current_user.email).empty?
       @list.where(person_4: current_user.email).each do |list|
-        @p = list.mk_room_id
+        @list_mkroom_id = list.mk_room_id
       end
     end
     render layout: "materialize"
   end
   
   def page4_time
+    Time.zone = 'Seoul'
+    @time = Time.zone.now
+    @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min
+    
     @mkroom = MkRoom.all    
     # @room_info = MkRoom.where(user_id: current_user.id)
     @room_info = MkRoom.where(user_id: current_user.id)

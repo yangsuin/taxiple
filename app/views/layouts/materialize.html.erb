@@ -14,6 +14,8 @@
   <script type="text/javascript" src="../../assets/page_4.js"></script>
   <link rel="stylesheet" type="text/css" href="../../assets/page_4.css">
   <link rel="stylesheet" type="text/css" href="../../assets/make_room.css">
+    <!--구글폰트-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body onload="updateClock(); setInterval('updateClock()', 1000 )">
@@ -34,26 +36,36 @@
   </ul>
   
   <ul id="slide-out" class="side-nav">
-      <li><a href="/taxiple/my_room">내가 들어간 방</a></li>
+      <li class ="waves-effect waves-red" style="width: 100%"><a href="/taxiple/my_room">내가 들어간 방</a></li>
       <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
-        <li><a href="/taxiple/make_room">방 만들기</a></li>
+        <li class ="waves-effect waves-yellow" style="width: 100%"><a href="/taxiple/make_room">방 만들기</a></li>
       <% end %>
-      <li><a href="/taxiple/page4">대기방 보기</a></li>
-      <li><a href="#">신고하기</a></li>
-      <li><a href="#">관련 법률</a></li>
+      <li class ="waves-effect waves-orange" style="width: 100%"><a href="/taxiple/page4"><img src="../../assets/binoculars-48.png"/>대기방 보기</a></li>
+      
+      <li class ="waves-effect waves-green" style="width: 100%"><a href="#"><img src="../../assets/advertising-48.png"/><span style="padding: 10px;">신고하기</span></a></li>
+      <li class ="waves-effect waves-purple" style="width: 100%"><a href="#">관련 법률</a></li>
   </ul>
-  <a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png" style="height: 55px; width:40px; margin-left: 10px;"/></a>
+  <!--<a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png"/></a>-->
+  <a class="button-collapse btn-floating waves-effect waves-light red hoverable content" href="#" data-activates="slide-out" style="height: 100%; width: 60px; margin-right: 10px;">
+    <i class="material-icons">add</i>
+  </a>
   <span id="clock">&nbsp;</span>
   <!-- Dropdown Trigger -->
-  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>정렬</a>
-
+  <a class='dropdown-button btn tooltipped' data-position="right" data-delay="50" data-tooltip="대기방을 정렬 시켜줍니다" href='#' data-activates='dropdown1' style="margin-left: 10px;">정렬</a>
   <!-- Dropdown Structure -->
   <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="/taxiple/page4_time">시간</a></li>
-    <li><a href="/taxiple/page4">급구</a></li>
+    <li><a href="/taxiple/page4_time"><img src="../../assets/alarm_clock-24.png"/>시간</a></li>
+    <li><a href="/taxiple/page4"><img src="../../assets/high_priority-24.png"/>급구</a></li>
   </ul>
   </div>
 </nav>
+  <div class="navbar-fixed">
+    <nav style="width: 0px;">
+      <div class="nav-wrapper">
+        <a class='btn tooltipped yellow accent-2' data-position="right" data-delay="50" data-tooltip="현재 페이지를 새로고침 합니다." href='#' onclick='location.reload(true); return false;' style="padding: 0px 3px; margin: 10px;"><img src="../../assets/synchronize-48.png" style="height: 38px; width: 38px; "/></a>
+      </div>
+    </nav>
+  </div>
 <%= yield %>
 
 </body>
