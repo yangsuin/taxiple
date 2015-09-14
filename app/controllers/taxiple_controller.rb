@@ -18,8 +18,8 @@ class TaxipleController < ApplicationController
   def create    
     @mkroom = MkRoom.create(user_id: current_user.id,
                   course: params[:course],
-                  user_hour: params[:user_hour].to_i,
-                  user_minute: params[:user_minute].to_i,
+                  user_hour: params[:user_hour],
+                  user_minute: params[:user_minute],
                   num_member_limit: params[:num_member_limit].to_i,
                   girl_only: params[:girl_only].to_i)
 
@@ -225,13 +225,17 @@ class TaxipleController < ApplicationController
     #시간 설정 
     Time.zone = 'Seoul'
     @time = Time.zone.now
+    @time_hour = @time.hour 
+    @ho = 8
     
     @mkroom = MkRoom.all
     if @time.min % 5 > 0
-      @minu = @time.min / 5 * 5 + 5
+      @time_minute = @time.min / 5 * 5 + 5
     else
-      @minu = @time.min / 5 * 5
+      @time_minute = @time.min / 5 * 5
     end
+    
+    @minu = 0
     
     @user = User.all
     @list = List.all

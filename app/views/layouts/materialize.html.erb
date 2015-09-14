@@ -36,17 +36,42 @@
     </ul>
   
   <ul id="slide-out" class="side-nav">
-    <li class ="waves-effect waves-red" style="width: 100%"><a href="/taxiple/my_room"><img class="valign" src="../../assets/collaboration-48.png"/><span style="font-size: 20px;">참여중인 방</span></a></li>
+    <li class ="waves-effect waves-red" style="width: 100%">
+      <a href="/taxiple/my_room">
+        <img class="valign" src="../../assets/collaboration-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
+        <span style="font-size: 15px;">참여중인 방</span>
+      </a>
+    </li>
     <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
       <hr style="margin: 0px; padding: 0px;">
-      <li class ="waves-effect waves-yellow" style="width: 100%"><a href="/taxiple/make_room"><img class="valign" src="../../assets/contacts-48.png"/><span style="font-size: 20px;">방 만들기</span></a></li>
+      <li class ="waves-effect waves-yellow" style="width: 100%">
+        <a href="/taxiple/make_room">
+          <img class="valign" src="../../assets/contacts-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
+          <span style="font-size: 15px;">방 만들기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </a>
+      </li>
     <% end %>
     <hr style="margin: 0px; padding: 0px;">
-    <li class ="waves-effect waves-orange" style="width: 100%"><a href="/taxiple/page4"><img src="../../assets/binoculars-48.png"/><span style="font-size: 20px;">대기방 보기</span></a></li>
+    <li class ="waves-effect waves-orange" style="width: 100%">
+      <a href="/taxiple/page4">
+        <img src="../../assets/binoculars-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
+        <span style="font-size: 15px;">대기방 보기</span>
+      </a>
+    </li>
     <hr style="margin: 0px; padding: 0px;">
-    <li class ="waves-effect waves-green" style="width: 100%"><a href="#"><img src="../../assets/advertising-48.png"/><span style="padding: 10px;"><span style="font-size: 20px;">신고하기</span></span></a></li>
+    <li class ="waves-effect waves-green" style="width: 100%">
+      <a href="#">
+        <img src="../../assets/advertising-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
+        <span style="font-size: 15px;">신고하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </a>
+    </li>
     <hr style="margin: 0px; padding: 0px;">
-    <li class ="waves-effect waves-purple" style="width: 100%"><a href="#"><img class="valign" src="../../assets/customer_support-48.png"/><span style="font-size: 20px;">관련 법률</span></a></li>
+    <li class ="waves-effect waves-purple" style="width: 100%">
+      <a href="#">
+        <img class="valign" src="../../assets/customer_support-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
+        <span style="font-size: 15px;">서비스 소개</span>
+      </a>
+    </li>
     <hr style="margin: 0px; padding: 0px;">
   </ul>
   <!--<a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png"/></a>-->
@@ -60,9 +85,9 @@
     
     <!-- Dropdown Structure -->
     <ul id='dropdown1' class='dropdown-content'>
-      <li><a href="/taxiple/page4_time"><img src="../../assets/alarm_clock-24.png"/>시간</a></li>
+      <li><a href="/taxiple/page4_time" style="text-align: center; vertical-align: middle;"><img src="../../assets/alarm_clock-24.png" style="text-align: center; vertical-align: middle;"/>&nbsp;<span style="text-align: center; vertical-align: middle;">시간</span></a></li>
       <hr style="margin: 0px; padding: 0px;">
-      <li><a href="/taxiple/page4"><img src="../../assets/high_priority-24.png"/>급구</a></li>
+      <li><a href="/taxiple/page4" style="text-align: center; vertical-align: middle;"><img src="../../assets/high_priority-24.png" style="text-align: center; vertical-align: middle;"/>&nbsp;<span style="text-align: center; vertical-align: middle;">급구</span></a></li>
     </ul>
     <span><%= current_user.email %>님 <%= @mention.sample %></span>
   </div>

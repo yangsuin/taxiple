@@ -1,33 +1,20 @@
 * {
-  
-  font-family: 'hanna';
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 /*
- * Hanna (Korean) http://www.google.com/fonts/earlyaccess
+ * Nanum Gothic (Korean) http://www.google.com/fonts/earlyaccess
  */
- 
- 
 @font-face {
-  font-family: 'Hanna';
+  font-family: 'Nanum Gothic';
   font-style: normal;
-  font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
-  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+  font-weight: 700;
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
+  src: url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
 }
-
-.back {
-  background-color: white;
-  border: solid 5px gray;
-}
-
-.intro_input {
-  min-height: 100px;
-}
-
 
 
 .room_num {

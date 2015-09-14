@@ -27,40 +27,30 @@
                   
                   <div class="input-field">
                     <select class="browser-default" name="user_hour" size="4" style="width:65px;color:#f98ad3;">
-                      <option value="<%= @time.hour %>" selected><%= @time.hour %></option>
-                      <option value="7">07</option>
-                      <option value="8">08</option>
-                      <option value="9">09</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                      <option value="20">20</option>
-                      <option value="21">21</option>
+                      <% while (20 - @ho) > 0 do %>
+                        <% if @ho == @time_hour %>
+                          <option value="<%= @ho %>" selected><%= @ho %></option>
+                          <% @ho += 1 %>
+                        <% else %>
+                          <option value="<%= @ho %>"><%= @ho %></option>
+                          <% @ho += 1 %>
+                        <% end %>
+                      <% end %>
                     </select>
                     <label>Hour</label>
                   </div> 
                   <div class="input-field">
                     <select name="user_minute" class="browser-default" size="4" style="width:65px;color:#f98ad3;">
-                      <option value="<%= @minu %>" selected><%= @minu %></option>
-                      <option value="00">00</option>
-                      <option value="05">05</option>
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                      <option value="20">20</option>
-                      <option value="25">25</option>
-                      <option value="30">30</option>
-                      <option value="35">35</option>
-                      <option value="40">40</option>
-                      <option value="45">45</option>
-                      <option value="50">50</option>
-                      <option value="55">55</option>
+                      
+                      <% while (60 - @minu) > 0 do %>
+                        <% if @minu == @time_minute %>
+                          <option value="<%= @minu %>" selected><%= @minu %></option>
+                          <% @minu += 5 %>
+                        <% else %>
+                          <option value="<%= @minu %>"><%= @minu %></option>
+                          <% @minu += 5 %>
+                        <% end %>
+                      <% end %>
                     </select>
                     <label>Minute</label>
                   </div>
@@ -73,9 +63,8 @@
                     </div>
                   <div class="input-field">
                     <select name="num_member_limit">
-                      <option value="3" selected>3명(기본)</option>
                       <option value="2">2명</option>
-                      <option value="3">3명</option>
+                      <option value="3" selected>3명</option>
                       <option value="4">4명</option>
                     </select>
                     <label>Member</label>
@@ -83,7 +72,7 @@
                     <br><br>
                   <input type="hidden" value=true name="register_to_use">
                   <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
-                  <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
+                    <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
                   <% end %>
                   <input type="submit" value="방만들기" class="btn btn-warning btn-lg">
                 <%# end %>
