@@ -1,5 +1,4 @@
 class TaxipleController < ApplicationController
-  
   before_action :authenticate_user!, except: [:index, :intro, :room_page, :menual] #로그인한 유저만 등록 가능하게함.
   def index
   end
@@ -16,7 +15,7 @@ class TaxipleController < ApplicationController
   def pra
   end
   
-  def create
+  def create    
     @mkroom = MkRoom.create(user_id: current_user.id,
                   course: params[:course],
                   user_hour: params[:user_hour].to_i,
@@ -39,6 +38,8 @@ class TaxipleController < ApplicationController
   end
   
   def page4 #인원 긊구 순으로 정렬
+    @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
+  
     Time.zone = 'Seoul'
     @time = Time.zone.now
     @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min
@@ -76,6 +77,8 @@ class TaxipleController < ApplicationController
   end
   
   def page4_time
+    @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
+  
     Time.zone = 'Seoul'
     @time = Time.zone.now
     @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min
@@ -120,7 +123,8 @@ class TaxipleController < ApplicationController
   end
   
   
-  def join    
+  def join  
+    
     MkRoom.where(id: params[:room_num].to_i).each do |mkroom|
       if mkroom.num_of_user_join >= mkroom.num_member_limit
         mkroom.finish = true
@@ -181,6 +185,7 @@ class TaxipleController < ApplicationController
   end
   
   def getout #참가했던 유저가 방을 나갔을 때
+    
     @list = List.all
     if !@list.where(person_2: current_user.email).empty?
       @list.where(person_2: current_user.email).each do |list|
@@ -215,6 +220,8 @@ class TaxipleController < ApplicationController
   
   
   def make_room
+    @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
+  
     #시간 설정 
     Time.zone = 'Seoul'
     @time = Time.zone.now
@@ -246,8 +253,13 @@ class TaxipleController < ApplicationController
   end
   
   def my_room
-    @mkroom = MkRoom.all
+    @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
     
+    Time.zone = 'Seoul'
+    @time = Time.zone.now
+    @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min
+    
+    @mkroom = MkRoom.all
     @user = User.all
     @list = List.all
     #입력창에서 방장 / 참가자 / 구경꾼에 따라 보여주는 화면 설정

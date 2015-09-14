@@ -12,9 +12,9 @@
   <script type="text/javascript" src="../../assets/materialize.js"></script>
   <script type="text/javascript" src="../../assets/make_room.js"></script>
   <script type="text/javascript" src="../../assets/page_4.js"></script>
-  <link rel="stylesheet" type="text/css" href="../../assets/page_4.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/page_4.css"><!-- 한나체 -->
   <link rel="stylesheet" type="text/css" href="../../assets/make_room.css">
-    <!--구글폰트-->
+    <!--구글아이콘-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -23,45 +23,53 @@
 
 <nav class="indigo yellow darken-2">
   <div class="nav-wrapper">
-   <ul class="right hide-on-med-and-down">
-   <li><a class="modal-trigger" href="#sign-in"><!--아이콘--><%= current_user.email %></a></li>
-    <li><a class="modal-trigger" href="/taxiple/my_room"><!--아이콘-->내가 들어간 방</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
-    <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
-      <li><a class="modal-trigger" href="/taxiple/make_room"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
-    <% end %>
-    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
-    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->신고하기</a></li>
-    <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->관련 법률</a></li>
-    <li><a class="modal-trigger" href="/taxiple/page4"><!--아이콘-->대기방 보기</a></li>
-  </ul>
+    <ul class="right hide-on-med-and-down">
+      <li><a class="modal-trigger" href="#sign-in"><!--아이콘--><%= current_user.email %></a></li>
+      <li><a class="modal-trigger" href="/taxiple/my_room"><!--아이콘-->내가 들어간 방</a></li><!--로그인 중이면 "내 정보" 로그아웃 중이면 "로그인하기"-->
+      <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
+        <li><a class="modal-trigger" href="/taxiple/make_room"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
+      <% end %>
+      <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
+      <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->신고하기</a></li>
+      <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->관련 법률</a></li>
+      <li><a class="modal-trigger" href="/taxiple/page4"><!--아이콘-->대기방 보기</a></li>
+    </ul>
   
   <ul id="slide-out" class="side-nav">
-      <li class ="waves-effect waves-red" style="width: 100%"><a href="/taxiple/my_room">내가 들어간 방</a></li>
-      <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
-        <li class ="waves-effect waves-yellow" style="width: 100%"><a href="/taxiple/make_room">방 만들기</a></li>
-      <% end %>
-      <li class ="waves-effect waves-orange" style="width: 100%"><a href="/taxiple/page4"><img src="../../assets/binoculars-48.png"/>대기방 보기</a></li>
-      
-      <li class ="waves-effect waves-green" style="width: 100%"><a href="#"><img src="../../assets/advertising-48.png"/><span style="padding: 10px;">신고하기</span></a></li>
-      <li class ="waves-effect waves-purple" style="width: 100%"><a href="#">관련 법률</a></li>
+    <li class ="waves-effect waves-red" style="width: 100%"><a href="/taxiple/my_room"><img class="valign" src="../../assets/collaboration-48.png"/><span style="font-size: 20px;">참여중인 방</span></a></li>
+    <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
+      <hr style="margin: 0px; padding: 0px;">
+      <li class ="waves-effect waves-yellow" style="width: 100%"><a href="/taxiple/make_room"><img class="valign" src="../../assets/contacts-48.png"/><span style="font-size: 20px;">방 만들기</span></a></li>
+    <% end %>
+    <hr style="margin: 0px; padding: 0px;">
+    <li class ="waves-effect waves-orange" style="width: 100%"><a href="/taxiple/page4"><img src="../../assets/binoculars-48.png"/><span style="font-size: 20px;">대기방 보기</span></a></li>
+    <hr style="margin: 0px; padding: 0px;">
+    <li class ="waves-effect waves-green" style="width: 100%"><a href="#"><img src="../../assets/advertising-48.png"/><span style="padding: 10px;"><span style="font-size: 20px;">신고하기</span></span></a></li>
+    <hr style="margin: 0px; padding: 0px;">
+    <li class ="waves-effect waves-purple" style="width: 100%"><a href="#"><img class="valign" src="../../assets/customer_support-48.png"/><span style="font-size: 20px;">관련 법률</span></a></li>
+    <hr style="margin: 0px; padding: 0px;">
   </ul>
   <!--<a href="#" data-activates="slide-out" class="button-collapse"><img src="../../assets/taxiplelogo.png"/></a>-->
-  <a class="button-collapse btn-floating waves-effect waves-light red hoverable content" href="#" data-activates="slide-out" style="height: 100%; width: 60px; margin-right: 10px;">
-    <i class="material-icons">add</i>
-  </a>
-  <span id="clock">&nbsp;</span>
-  <!-- Dropdown Trigger -->
-  <a class='dropdown-button btn tooltipped' data-position="right" data-delay="50" data-tooltip="대기방을 정렬 시켜줍니다" href='#' data-activates='dropdown1' style="margin-left: 10px;">정렬</a>
-  <!-- Dropdown Structure -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="/taxiple/page4_time"><img src="../../assets/alarm_clock-24.png"/>시간</a></li>
-    <li><a href="/taxiple/page4"><img src="../../assets/high_priority-24.png"/>급구</a></li>
-  </ul>
+  <!---탑바 -->
+    <a class="button-collapse btn-floating waves-effect waves-light red hoverable content" href="#" data-activates="slide-out" style="height: 100%; width: 60px; margin-right: 10px;">
+      <i class="material-icons">add</i>
+    </a>
+    <span id="clock">&nbsp;</span>
+    <!-- Dropdown Trigger -->
+    <a class='dropdown-button btn tooltipped' data-position="right" data-delay="50" data-tooltip="대기방을 정렬 시켜줍니다" href='#' data-activates='dropdown1' style="margin: 0px 10px;">정렬</a>
+    
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+      <li><a href="/taxiple/page4_time"><img src="../../assets/alarm_clock-24.png"/>시간</a></li>
+      <hr style="margin: 0px; padding: 0px;">
+      <li><a href="/taxiple/page4"><img src="../../assets/high_priority-24.png"/>급구</a></li>
+    </ul>
+    <span><%= current_user.email %>님 <%= @mention.sample %></span>
   </div>
 </nav>
-  <div class="navbar-fixed">
-    <nav style="width: 0px;">
-      <div class="nav-wrapper">
+  <div class="navbar-fixed" >
+    <nav style="box-shadow: none;">
+      <div class="right nav-wrapper">
         <a class='btn tooltipped yellow accent-2' data-position="right" data-delay="50" data-tooltip="현재 페이지를 새로고침 합니다." href='#' onclick='location.reload(true); return false;' style="padding: 0px 3px; margin: 10px;"><img src="../../assets/synchronize-48.png" style="height: 38px; width: 38px; "/></a>
       </div>
     </nav>

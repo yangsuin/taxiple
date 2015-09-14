@@ -17,10 +17,11 @@
                 <span class="card-title black-text"><%= mkroom.id %>. <%= mkroom.course %></span> 
                 <p>방번호 : <%= mkroom.id %></p>
                 <p>경로 : <%= mkroom.course %></p>
-                <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
-                  <p>시간 : <%= mkroom.user_hour %> : <%= mkroom.user_minute %>까지</p>
+                <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.user_hour * 60 + mkroom.user_minute) %>
+                  <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</p><!--만일 유저가 예약한 시간이 지나지 않았다면 예약한 시간 띄우고--->
                 <% else %>
-                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                  <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지 (시간경과)</p><!--만일 유저가 예약한 시간이 지났다면--->
+                  <p><span style="color: red;">지금 바로</span></p>
                 <% end %>
                 <p>인원수 : <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %> </p>
                 <div class="card-action">
@@ -52,10 +53,11 @@
                 <span class="card-title black-text"><%= p.id %>. <%= p.course %></span>
                 <p>방번호 : <%= p.id %></p>
                 <p>경로 : <%= p.course %></p>
-                <% if @t < (p.created_at.day * 24 * 60 + p.created_at.hour * 60 + p.created_at.min) %>
-                  <p>시간 : <%= p.user_hour %> : <%= p.user_minute %>까지</p>
+                <% if @t < (p.created_at.day * 24 * 60 + p.user_hour * 60 + p.user_minute) %>
+                  <p>시간 : <%= p.user_hour%> : <%= p.user_minute%>까지</p><!--만일 유저가 예약한 시간이 지나지 않았다면 예약한 시간 띄우고--->
                 <% else %>
-                  <p>시간 : <span style="color: red;">지금 바로</span></p>
+                  <p>시간 : <%= p.user_hour%> : <%= p.user_minute%>까지 (시간경과)</p><!--만일 유저가 예약한 시간이 지났다면--->
+                  <p><span style="color: red;">지금 바로</span></p>
                 <% end %>
                 <p>인원수 : <%= p.num_of_user_join %> / <%= p.num_member_limit %> </p>
                 <form action="/taxiple/getout" method="GET">
@@ -71,88 +73,91 @@
   <% end %>
 <% end %>
 <% @mkroom.order("user_hour, user_minute").each do |mkroom| %> <!--대기중인 방을 출발 시간 대한 정보를 기준으로 분류해서 뿌리기 위한 루비문법-->
-  <% @user_time_compare = mkroom.user_hour.to_i * 60 + mkroom.user_minute.to_i %>  
-  <% if @now_time_compare < @user_time_compare %>
-  <%# if @time.hour - mkroom.user_hour.to_i == 0 %>
-  <div class = "container">
-    <div class="card lime lighten-5"> 
-      <div class = "row">
-        <div class = "col-md-12">
-          <div class = "panel panel-default room" style="margin: 20px 10px;">
-            <div class = "panel-heading"><%= mkroom.id %>. <%= mkroom.course%> 
-              <% if mkroom.girl_only == "girl"%><i class="fa fa-female" style = "color: red;"></i><%end%>
-            </div>
-            <div class = "panel-body" align = "left">
-              <div class = "logo">
-                <img src = "http://www.snu.ac.kr/images/common/img/img01_mark_ab0102.gif" width = "40px">
+  <% if mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min >= @t - 15 %><!--유저가 만든 방이 현재 시각으로 부터 15분 전에 만든 방부터 대기방으로 안보여주기 위해--->
+    <% @user_time_compare = mkroom.user_hour.to_i * 60 + mkroom.user_minute.to_i %>  
+    <% if @now_time_compare < @user_time_compare %>
+    <%# if @time.hour - mkroom.user_hour.to_i == 0 %>
+    <div class = "container">
+      <div class="card lime lighten-5"> 
+        <div class = "row">
+          <div class = "col-md-12">
+            <div class = "panel panel-default room" style="margin: 20px 10px;">
+              <div class = "panel-heading"><%= mkroom.id %>. <%= mkroom.course%> 
+                <% if mkroom.girl_only == "girl"%><i class="fa fa-female" style = "color: red;"></i><%end%>
               </div>
-              <table>
-                <tr>
-                  <% @user.where(id: mkroom.user_id).each do |x| %>
-                    <td class = "name">개설자 : <%= x.email %></td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <% @list.where(mk_room_id: mkroom.id).each do |list| %>
-                    <td class = "name">참여자 : <%= list.person_2 %>, <%= list.person_3 %>, <%= list.person_4 %></td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.created_at.hour * 60 + mkroom.created_at.min) %>
-                    <p>시간 : <%= mkroom.user_hour %> : <%= mkroom.user_minute %>까지</p>
-                  <% else %>
-                    <p>시간 : <span style="color: red;">지금 바로</span></p>
-                  <% end %>
-                </tr>
-                <tr>
-                  <td class = "member_num">현재인원 / 모집인원<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %>
-                  </td>
-                </tr>
-                <!--<tr>-->
-                <!--  <td>-->
-                <!--    <p><%#= @now_user.inspect %></p>-->
-                <!--    <p>   -> 현재 접속중인 유저에 대한 정보</p>-->
-                <!--    <br>-->
-                <!--    <p>이 방의 정보 : <%#= @room_info.inspect %></p>-->
-                <!--    <p>   -> 현재 접속중인 유저가 만든 방정보에 대한( 최근에 만든) 정보</p>-->
-                <!--    <br>-->
-                <!--    <p><%#= @now_list.inspect %></p>-->
-                <!--    <p>-> 현재 접속중인 유저가 어느 방에 속해있는지(list)</p>-->
-                <!--    <h3><#%= @mkroom.where(user_id: current_user.id).inspect %></h3>-->
-                <!--    <%#= @user.where(id: current_user).count(register_to_use: false) %>-->
-                <!--  </td>-->
-                <!--</tr>-->
-              </table>
-              <center>
-                <%# unless @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 %> 
-                  <% if mkroom.num_of_user_join >= mkroom.num_member_limit %>
-                    <button type="button" class="btn btn-danger btn-lg">만석</button>
-                  <% else %>
-                    <form action="/taxiple/join" method="GET">
-                      <input type="hidden" name="person_1" value="<%= current_user.email %>"><!--개설자의 이메일 알기위해-->
-                      <!--<input type="hidden" name="list_num" value="<%#= mkroom.id %>"><!--참여자들의 이메일 알기위해(List와 MkRoom의 ID는 같다 -->
-                      <input type="hidden" name="room_num" value="<%= mkroom.id %>"><!--어디방의 인원수를 조정할지 방의 위치(숫자)를 확인 -->
-                      <input type="hidden" name="user_name" value="<%= current_user.email %>"><!--누가 탔는지는 고객관리 측면에서 필요하니까 따로 저장! -->
-                        <% @user.where(id: current_user.id).each do |user| %>
-                          <% if user.register_to_use == false %>
-                          <input type="submit" value="참여하기" id="<%= mkroom.finish %>">
-                          <% else %>
-                          <h2> 현재 내가 속한 방 </h2>
-                          <% end %>
-                        <% end %> 
-                    </form>
-                  <% end %>
-                <%# else %>
-                  <!--현재 접속중인 사용자가 방을 만든 적이 있고 && 그 방이 아직 안끝났을 때-->
-                <%# end %>
-              </center>
+              <div class = "panel-body" align = "left">
+                <div class = "logo">
+                  <img src = "http://www.snu.ac.kr/images/common/img/img01_mark_ab0102.gif" width = "40px">
+                </div>
+                <table>
+                  <tr>
+                    <% @user.where(id: mkroom.user_id).each do |x| %>
+                      <td class = "name">개설자 : <%= x.email %></td>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <% @list.where(mk_room_id: mkroom.id).each do |list| %>
+                      <td class = "name">참여자 : <%= list.person_2 %>, <%= list.person_3 %>, <%= list.person_4 %></td>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <% if @t < (mkroom.created_at.day * 24 * 60 + mkroom.user_hour * 60 + mkroom.user_minute) %>
+                      <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지</p><!--만일 유저가 예약한 시간이 지나지 않았다면 예약한 시간 띄우고--->
+                    <% else %>
+                      <p>시간 : <%= mkroom.user_hour%> : <%= mkroom.user_minute%>까지 (시간경과)</p><!--만일 유저가 예약한 시간이 지났다면--->
+                      <p><span style="color: red;">지금 바로</span></p>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <td class = "member_num">현재인원 / 모집인원<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <%= mkroom.num_of_user_join %> / <%= mkroom.num_member_limit %>
+                    </td>
+                  </tr>
+                  <!--<tr>-->
+                  <!--  <td>-->
+                  <!--    <p><%#= @now_user.inspect %></p>-->
+                  <!--    <p>   -> 현재 접속중인 유저에 대한 정보</p>-->
+                  <!--    <br>-->
+                  <!--    <p>이 방의 정보 : <%#= @room_info.inspect %></p>-->
+                  <!--    <p>   -> 현재 접속중인 유저가 만든 방정보에 대한( 최근에 만든) 정보</p>-->
+                  <!--    <br>-->
+                  <!--    <p><%#= @now_list.inspect %></p>-->
+                  <!--    <p>-> 현재 접속중인 유저가 어느 방에 속해있는지(list)</p>-->
+                  <!--    <h3><#%= @mkroom.where(user_id: current_user.id).inspect %></h3>-->
+                  <!--    <%#= @user.where(id: current_user).count(register_to_use: false) %>-->
+                  <!--  </td>-->
+                  <!--</tr>-->
+                </table>
+                <center>
+                  <%# unless @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 %> 
+                    <% if mkroom.num_of_user_join >= mkroom.num_member_limit %>
+                      <button type="button" class="btn btn-danger btn-lg">만석</button>
+                    <% else %>
+                      <form action="/taxiple/join" method="GET">
+                        <input type="hidden" name="person_1" value="<%= current_user.email %>"><!--개설자의 이메일 알기위해-->
+                        <!--<input type="hidden" name="list_num" value="<%#= mkroom.id %>"><!--참여자들의 이메일 알기위해(List와 MkRoom의 ID는 같다 -->
+                        <input type="hidden" name="room_num" value="<%= mkroom.id %>"><!--어디방의 인원수를 조정할지 방의 위치(숫자)를 확인 -->
+                        <input type="hidden" name="user_name" value="<%= current_user.email %>"><!--누가 탔는지는 고객관리 측면에서 필요하니까 따로 저장! -->
+                          <% @user.where(id: current_user.id).each do |user| %>
+                            <% if user.register_to_use == false %>
+                            <input type="submit" value="참여하기" id="<%= mkroom.finish %>">
+                            <% else %>
+                            <h2> 현재 내가 속한 방 </h2>
+                            <% end %>
+                          <% end %> 
+                      </form>
+                    <% end %>
+                  <%# else %>
+                    <!--현재 접속중인 사용자가 방을 만든 적이 있고 && 그 방이 아직 안끝났을 때-->
+                  <%# end %>
+                </center>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    <% end %>
   <% end %>
 <% end %>
 
