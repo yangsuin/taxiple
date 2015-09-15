@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_one :mk_room
   belongs_to :list
+  has_many :chat
 end

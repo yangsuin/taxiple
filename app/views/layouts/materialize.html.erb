@@ -38,12 +38,14 @@
     </ul>
   
   <ul id="slide-out" class="side-nav">
+  <% if !current_user.list.nil? %>
     <li class ="waves-effect waves-red" style="width: 100%">
-      <a href="/taxiple/my_room">
+      <a href="/taxiple/my_room/<%= current_user.list.id%>">
         <img class="valign" src="../../assets/collaboration-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
         <span style="font-size: 15px;">참여중인 방</span>
       </a>
     </li>
+  <% end %>
     <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
       <hr style="margin: 0px; padding: 0px;">
       <li class ="waves-effect waves-yellow" style="width: 100%">

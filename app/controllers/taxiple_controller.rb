@@ -34,7 +34,7 @@ class TaxipleController < ApplicationController
       user.register_to_use = params[:register_to_use]
       user.save
     end
-    redirect_to "/taxiple/page4"
+    redirect_to '/taxiple/page4'
   end
   
   def page4 #인원 긊구 순으로 정렬
@@ -220,6 +220,7 @@ class TaxipleController < ApplicationController
   
   
   def make_room
+    
     @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
   
     #시간 설정 
@@ -257,16 +258,20 @@ class TaxipleController < ApplicationController
   end
   
   def my_room
+    @user = User.all
+    @chat = Chat.all
+    @list = List.where(
+                              :person_1 => current_user.id,
+                              :person_2 => params[:id]).take
+    @list2 = List.where(
+                              :person_2 => current_user.id,
+                              :person_1 => params[:id]).take                          
+    if @list.nil?
+      @list = @list2
+    end
+    
+    
     @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
-    
-    
-    @chat = Chat.new
-    @chat.user_chat = params[:user_chat]
-    @chat.save
-    #pusher
-    Pusher['onlyone'].trigger('new_message', {
-      msg: params[:content] 
-    })
     
     Time.zone = 'Seoul'
     @time = Time.zone.now
@@ -290,5 +295,16 @@ class TaxipleController < ApplicationController
       end
     end
     render layout: "materialize"
+  end
+  
+  def write_chat
+       #pusher
+    Pusher['onlyone'].trigger('new_message', {
+      msg: params[:content],
+      email: current_user.email
+    })
+    @chat = Chat.create(user_chat: params[:content],
+                        user_id: current_user.id,
+                        list_id: params[:id_of_list] )
   end
 end
