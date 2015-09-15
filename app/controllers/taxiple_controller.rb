@@ -259,6 +259,15 @@ class TaxipleController < ApplicationController
   def my_room
     @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
     
+    
+    @chat = Chat.new
+    @chat.user_chat = params[:user_chat]
+    @chat.save
+    #pusher
+    Pusher['onlyone'].trigger('new_message', {
+      msg: params[:content] 
+    })
+    
     Time.zone = 'Seoul'
     @time = Time.zone.now
     @t = @time.day * 24 * 60 + @time.hour * 60 + @time.min

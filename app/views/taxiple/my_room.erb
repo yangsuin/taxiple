@@ -72,3 +72,40 @@
     </div>
   </div>
 </div>
+
+<h1>Real_Time_Chat</h1>
+
+<div id="chat_list"></div>
+
+<textarea id="chat_content">
+
+</textarea>
+<a href="#" id="submit_msg">아!!</a>
+<script>
+$(document).ready(function() {
+    //pusher서버로부터 값을 받는 부분 start
+    var pusher = new Pusher('318058814b98a5f6494c', {
+      encrypted: true
+    });
+    var channel = pusher.subscribe('onlyone');
+    channel.bind('new_message', function(data) {
+      var txt= data.msg
+      $("#chat_list").append("<p>"+ txt + "<p>");
+    });
+    //클릭시 ajax로 값을 던지는 코드 start
+    $("#submit_msg").click(function() {
+        $.ajax({
+            data: {
+                content: $("#chat_content").val()
+            },
+                url: "/taxiple/my_room",
+                success: function() {
+                    
+                    $("#chat_content").val('');
+                    $("#chat_content").focus();
+                }
+            
+        });
+    }); 
+});
+</script>

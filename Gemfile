@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+#pusher gem
+gem 'pusher'
 #mailgun Gem - https://github.com/jorgemanrubia/mailgun_rails
 gem 'mailgun_rails'
 #devise Gem - https://github.com/plataformatec/devise
