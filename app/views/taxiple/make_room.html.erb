@@ -1,88 +1,108 @@
-<div class="container">
-  <div class="row">
-    <div class="col s12 m6">
-      <div class="card lime lighten-5">
-        <div class = "container">
-           <div class="card-content black-text">   
-            <center>
-               <!--드롭다운 -->
-              <div class="card-content black-text">
-                <span class="card-title black-text"><h5>모든 항목을 선택해주세요!</h5></span>
-  
-               <!--드롭다운 end -->
-            </center>
-            <br>
-            <div style="font-size: 20px; line-height: 200%;">
+
+<% if 7 < @time_hour && @time_hour < 21 %>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card lime lighten-5">
+          <div class = "container">
+             <div class="card-content black-text">   
               <center>
-                <%#= form_tag "create",class: "form-inline" do %>
-               <form action="/taxiple/create" method="GET">
-                  <div class="input-field">
-                    <select name="course" size="4" style="width:65px;color:#f98ad3;">
-                      <option value="서울대입구역 -> 서울대" selected>서울대입구역 -> 서울대</option>
-                      <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
-                    </select>
-                    <label>Route</label>
-                  </div>
-                  <br>
-                  
-                  <div class="input-field">
-                    <select class="browser-default" name="user_hour" size="4" style="width:65px;color:#f98ad3;">
-                      <% while (20 - @ho) > 0 do %>
-                        <% if @ho == @time_hour %>
-                          <option value="<%= @ho %>" selected><%= @ho %></option>
-                          <% @ho += 1 %>
-                        <% else %>
-                          <option value="<%= @ho %>"><%= @ho %></option>
-                          <% @ho += 1 %>
-                        <% end %>
-                      <% end %>
-                    </select>
-                    <label>Hour</label>
-                  </div> 
-                  <div class="input-field">
-                    <select name="user_minute" class="browser-default" size="4" style="width:65px;color:#f98ad3;">
-                      
-                      <% while (60 - @minu) > 0 do %>
-                        <% if @minu == @time_minute %>
-                          <option value="<%= @minu %>" selected><%= @minu %></option>
-                          <% @minu += 5 %>
-                        <% else %>
-                          <option value="<%= @minu %>"><%= @minu %></option>
-                          <% @minu += 5 %>
-                        <% end %>
-                      <% end %>
-                    </select>
-                    <label>Minute</label>
-                  </div>
-                    <br>
-                    <div>
-                      <input id="girl_only_1" type="radio" name="girl_only" value="girl">
-                      <label for="girl_only_1">여성전용</label>
-                      <input id="girl_only_2" type="radio" name="girl_only" value="common" checked="checked">
-                      <label for="girl_only_2">일반</label>
-                    </div>
-                  <div class="input-field">
-                    <select name="num_member_limit">
-                      <option value="2">2명</option>
-                      <option value="3" selected>3명</option>
-                      <option value="4">4명</option>
-                    </select>
-                    <label>Member</label>
-                  </div>
-                    <br><br>
-                  <input type="hidden" value=true name="register_to_use">
-                  <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
-                    <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
-                  <% end %>
-                  <input type="submit" value="방만들기" class="btn btn-warning btn-lg">
-                <%# end %>
-                </form>
+                 <!--드롭다운 -->
+                <div class="card-content black-text">
+                  <span class="card-title black-text"><h5>모든 항목을 선택해주세요!</h5></span>
+    
+                 <!--드롭다운 end -->
               </center>
+              <br>
+              <div style="font-size: 20px; line-height: 200%;">
+                <center>
+                  <%#= form_tag "create",class: "form-inline" do %>
+                 <form action="/taxiple/create" method="GET">
+                    <div class="input-field">
+                      <select name="course" size="4" style="width:65px;color:#f98ad3;">
+                        <option value="서울대입구역 -> 서울대" selected>서울대입구역 -> 서울대</option>
+                        <option value="서울대 -> 서울대입구역">서울대 -> 서울대입구역</option>
+                      </select>
+                      <label>Route</label>
+                    </div>
+                    <br>
+                    
+                    <div class="input-field">
+                      <select class="browser-default" name="user_hour" size="4" style="width:65px;color:#f98ad3;">
+                        <% while @hour_compare < 21 do %>
+                          <% if @hour_compare == @time.hour %>
+                            <option value=<%= @hour_compare %> selected><%= @hour_compare %></option>
+                            <% @hour_compare += 1 %>
+                          <% else %>
+                            <option value=<%= @hour_compare %>><%= @hour_compare %></option>
+                            <% @hour_compare += 1 %>
+                          <% end %>
+                        <% end %>
+                      </select>
+                      <label>Hour</label>
+                    </div> 
+                    <div class="input-field">
+                      <select name="user_minute" class="browser-default" size="4" style="width:65px;color:#f98ad3;">
+                        
+                        <% while (60 - @minu) > 0 do %>
+                          <% if @minu == @time_minute %>
+                            <option value=<%= @minu %> selected><%= @minu %></option>
+                            <% @minu += 5 %>
+                          <% else %>
+                            <option value=<%= @minu %>><%= @minu %></option>
+                            <% @minu += 5 %>
+                          <% end %>
+                        <% end %>
+                      </select>
+                      <label>Minute</label>
+                    </div>
+                      <br>
+                      <div>
+                        <input id="girl_only_1" type="radio" name="girl_only" value="girl">
+                        <label for="girl_only_1">여성전용</label>
+                        <input id="girl_only_2" type="radio" name="girl_only" value="common" checked="checked">
+                        <label for="girl_only_2">일반</label>
+                      </div>
+                    <div class="input-field">
+                      <select name="num_member_limit">
+                        <option value="2">2명</option>
+                        <option value="3" selected>3명</option>
+                        <option value="4">4명</option>
+                      </select>
+                      <label>Member</label>
+                    </div>
+                      <br><br>
+                    <input type="hidden" value=true name="register_to_use">
+                    <% @mkroom.where(user_id: current_user.id).each do |mkroom| %>
+                      <input type="hidden" value="<%= mkroom.id %>" name="made_room_num">
+                    <% end %>
+                    <input type="submit" value="방만들기" class="btn btn-warning btn-lg">
+                  <%# end %>
+                  </form>
+                </center>
+              </div>
             </div>
           </div>
-        </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% else %>
+<div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card lime lighten-5">
+          <div class = "container">
+             <div class="card-content black-text">
+               <center>
+               <h3>운영시간이<br> 종료 되었습니다</h3>
+              <h6>운영 시간 : 오전 8시 ~ 오후 8시</h6>
+               </center>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

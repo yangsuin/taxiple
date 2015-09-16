@@ -227,8 +227,7 @@ class TaxipleController < ApplicationController
     Time.zone = 'Seoul'
     @time = Time.zone.now
     @time_hour = @time.hour 
-    @ho = 8
-    
+    @hour_compare = @time_hour
     @mkroom = MkRoom.all
     if @time.min % 5 > 0
       @time_minute = @time.min / 5 * 5 + 5
@@ -305,6 +304,8 @@ class TaxipleController < ApplicationController
     })
     @chat = Chat.create(user_chat: params[:content],
                         user_id: current_user.id,
-                        list_id: params[:id_of_list] )
+                        list_id: params[:list_id] )
+    
+    render :text => ""
   end
 end

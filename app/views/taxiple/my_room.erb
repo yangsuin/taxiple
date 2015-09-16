@@ -74,10 +74,15 @@
 </div>
 
 <h3>Real_Time_Chat</h3>
-
-<%  @chat.each do |c| %>
+<%  @chat.where(list_id: current_user.list.id).each do |c| %>
   <% @user.where(id: c.user_id).each do |u| %>
-    <p><%= u.email %> : <%= c.user_chat %></p>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6">
+          <p><%= u.email %> : <%= c.user_chat %> - <%= c.created_at.mon %>월 <%= c.created_at.day %>일 <%= c.created_at.hour %>시 <%= c.created_at.min %>분 </p>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% end %>
 <div id="chat_list"></div>
@@ -88,7 +93,7 @@
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="chat_content" class="materialize-textarea"></textarea>
           <%  @list.each do  |l| %>
-            <input type="hidden" id="list_id" id="<%= l.id %>">
+            <input type="hidden" id="list_id" value="<%= l.id %>">
           <% end %>
           <label for="icon_prefix2">First Name<a href="#" id="submit_msg">아!!</a></label>
         </div>

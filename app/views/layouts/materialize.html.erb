@@ -38,7 +38,7 @@
     </ul>
   
   <ul id="slide-out" class="side-nav">
-  <% if !current_user.list.nil? %>
+  <% if !current_user.list.nil? and @user.where(id: current_user.id).take.register_to_use == true %>
     <li class ="waves-effect waves-red" style="width: 100%">
       <a href="/taxiple/my_room/<%= current_user.list.id%>">
         <img class="valign" src="../../assets/collaboration-48.png" style="padding-right: 15px; text-align: center; vertical-align: middle; width: 50px;"/>
