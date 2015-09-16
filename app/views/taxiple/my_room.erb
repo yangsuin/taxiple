@@ -1,23 +1,3 @@
-<% if @user.where(id: current_user).where(register_to_use: false).count == 1 %><!--방을 만들지도 참여한 적도 없는 유저--->
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card lime lighten-5">
-          <div class="container">
-            <div class="card-content black-text">
-              <span class="card-title black-text">방을 만들거나 참여하시지 않으셨군요!</span> 
-              <p>상단 좌측의 
-              <a class="btn-floating waves-effect waves-light red hoverable content"><i class="material-icons">add</i></a>
-              를 클릭해 방을 만들거나 대기중인 방에 참여해주세요!
-              </p>
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
 <div class="container">
   <div class="row">
     <div class="col s12 m6">
@@ -74,17 +54,42 @@
 </div>
 
 <h3>Real_Time_Chat</h3>
+<%#  @chat.where(list_id: current_user.list.id).each do |c| %>
+  <%# @user.where(id: c.user_id).each do |u| %>
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col s12 m6">-->
+<!--          <div class="card lime lighten-5">-->
+<!--            <div class="container">-->
+<!--              <div class="card-content black-text">-->
+<!--                <p><%#= u.email %> : <%#= c.user_chat %> - <%#= c.created_at.mon %>월 <%#= c.created_at.day %>일 <%#= c.created_at.hour %>시 <%#= c.created_at.min %>분 </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  <%# end %>
+<%# end %>
+
+
 <%  @chat.where(list_id: current_user.list.id).each do |c| %>
-  <% @user.where(id: c.user_id).each do |u| %>
+  
     <div class="container">
       <div class="row">
         <div class="col s12 m6">
-          <p><%= u.email %> : <%= c.user_chat %> - <%= c.created_at.mon %>월 <%= c.created_at.day %>일 <%= c.created_at.hour %>시 <%= c.created_at.min %>분 </p>
+          <div class="card lime lighten-5">
+            <div class="container">
+              <div class="card-content black-text">
+                <p><%= c.user_chat %> - <%= c.created_at.mon %>월 <%= c.created_at.day %>일 <%= c.created_at.hour %>시 <%= c.created_at.min %>분 </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  <% end %>
 <% end %>
+
 <div id="chat_list"></div>
 <div class="row">
     <form class="col s12">
@@ -93,7 +98,7 @@
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="chat_content" class="materialize-textarea"></textarea>
           <%  @list.each do  |l| %>
-            <input type="hidden" id="list_id" value="<%= l.id %>">
+            <input type="hidden" id="list_id" value="<%= @a %>"><!---지금 있는 방에 대한 id값-->
           <% end %>
           <label for="icon_prefix2">First Name<a href="#" id="submit_msg">아!!</a></label>
         </div>

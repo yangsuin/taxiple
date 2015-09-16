@@ -9,8 +9,12 @@
 user = User.create!  :email => '1234@1234.com', :password => '12341234', :password_confirmation => '12341234'
 user = User.create! :email => 'antmgu@naver.com', :password => '12341234', :password_confirmation => '12341234'
 user = User.create! :email => 'seunghyun257@naver.com', :password => '12341234', :password_confirmation => '12341234'
-user = User.create! :email => 'qwer@qwer.com', :password => 'qwerqwer', :password_confirmation => 'qwerqwer'
-user = User.create! :email => 'asdf@asdf.com', :password => 'asdfasdf', :password_confirmation => 'asdfasdf'
+user = User.create! :email => 'qwer@qwer.com', :password => '12341234', :password_confirmation => '12341234'
+user = User.create! :email => 'asdf@asdf.com', :password => '12341234', :password_confirmation => '12341234'
+user = User.create! :email => '1111@1111.com', :password => '11111111', :password_confirmation => '11111111'
+user = User.create! :email => '1@1.com', :password => '11111111', :password_confirmation => '11111111'
+user = User.create! :email => '2@2.com', :password => '22222222', :password_confirmation => '22222222'
+user = User.create! :email => '3@3.com', :password => '33333333', :password_confirmation => '33333333'
 
 
 # 안돼 ㅠㅠㅠㅠ

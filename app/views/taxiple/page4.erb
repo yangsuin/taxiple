@@ -1,7 +1,32 @@
+<% if @user.where(id: current_user).take.register_to_use == false %><!--방을 만들지도 참여한 적도 없는 유저--->
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card lime lighten-5">
+          <div class="container">
+            <div class="card-content black-text">
+              <span class="card-title black-text">방을 만들거나 참여하시지 않으셨군요!</span> 
+              <p>상단 좌측의 
+              <a class="btn-floating waves-effect waves-light red hoverable content"><i class="material-icons">add</i></a>
+              를 클릭해 방을 만들거나 대기중인 방에 참여해주세요!
+              </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<!--급구 순서대로 정렬 --->
 
-<!--급구 순서대로 정렬--->
 
-<% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false) == 1 %>
+
+<% if !@mkroom.where(user_id: current_user.id).take.nil?%>
+
+
+
+
+<% if @mkroom.count(user_id: current_user.id) > 0 && @user.where(id: current_user).take.register_to_use == false %>
 <!-- asndaskdl
 -방장 화면의 내가 접속중인 방 정보-
 1.현재 접속중인 사용자가 방을 만든 적이 있을 때(단, MkRoom이 destroy되면 그 줄이 날아가기때문에 나갔던 방을 계산할 필요가 없다.)
@@ -53,7 +78,7 @@
                 <p>방번호 : <%= p.id %></p>
                 <p>경로 : <%= p.course %></p>
                 <% if p.user_hour == nil %>
-                  s
+                  
                 <% elsif @t < (p.created_at.day * 24 * 60) + (p.user_hour * 60) + p.user_minute %>
                   <p>시간 : <%= p.user_hour%> : <%= p.user_minute%>까지</p><!--만일 유저가 예약한 시간이 지나지 않았다면 예약한 시간 띄우고--->
                 <% else %>
@@ -73,8 +98,23 @@
     </div>
   <% end %>
 <% end %>
+
+
+
+
+
+<% end %>
+
+
+
+
+
+
+
+
 <% @mkroom.order("num_member_limit - num_of_user_join").each do |mkroom| %><!-- 방인원이 거의 다찰 것 같은 방부터 정렬  -->
-  <% if (mkroom.created_at.day * 24 * 60) + (mkroom.created_at.hour * 60) + mkroom.created_at.min >= (@t - 15) %><!--유저가 만든 방이 현재 시각으로 부터 15분 전에 만든 방부터 대기방으로 안보여주기 위해--->
+  <% if !mkroom.created_at.day.nil? && !mkroom.created_at.hour.nil? && !mkroom.created_at.min.nil? && !mkroom.user_minute.nil? && !mkroom.user_hour.nil?%>
+  <% if (mkroom.created_at.day * 24 * 60) + (mkroom.created_at.hour * 60) + mkroom.created_at.min > (@t - 16) %><!--유저가 만든 방이 현재 시각으로 부터 15분 전에 만든 방부터 대기방으로 안보여주기 위해--->
   <%# @mkroom.each do |x| %> <!--대기중인 방에대한 정보를 뿌리기 위한 루비문법-->
     <%# x.order("num_member_limit - num_of_user_join").each do |mkroom| %>
     <%# if (mkroom.num_member_limit.to_i - mkroom.num_of_user_join.to_i).abs > 0 %>
@@ -161,6 +201,7 @@
     </div>
     <%# end %>
   <% end %>
+<% end %>
 <% end %>
 
 

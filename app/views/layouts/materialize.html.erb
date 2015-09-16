@@ -31,7 +31,7 @@
       <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
         <li><a class="modal-trigger" href="/taxiple/make_room"><!--아이콘-->방 만들기</a></li><!-- 로그인 중이면 보여주기-->
       <% end %>
-      <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->요금 계산기</a></li>
+      <li><a class="modal-trigger" href="/taxiple/calculator"><!--아이콘-->요금 계산기</a></li>
       <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->신고하기</a></li>
       <li><a class="modal-trigger" href="#sign-in"><!--아이콘-->관련 법률</a></li>
       <li><a class="modal-trigger" href="/taxiple/page4"><!--아이콘-->대기방 보기</a></li>

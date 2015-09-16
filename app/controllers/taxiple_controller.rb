@@ -18,8 +18,8 @@ class TaxipleController < ApplicationController
   def create    
     @mkroom = MkRoom.create(user_id: current_user.id,
                   course: params[:course],
-                  user_hour: params[:user_hour],
-                  user_minute: params[:user_minute],
+                  user_hour: params[:user_hour].to_i,
+                  user_minute: params[:user_minute].to_i,
                   num_member_limit: params[:num_member_limit].to_i,
                   girl_only: params[:girl_only].to_i)
 
@@ -31,7 +31,7 @@ class TaxipleController < ApplicationController
     
     User.where(id: current_user.id).each do |user|
       user.list_id = @list.id
-      user.register_to_use = params[:register_to_use]
+      user.register_to_use = true
       user.save
     end
     redirect_to '/taxiple/page4'
@@ -171,14 +171,6 @@ class TaxipleController < ApplicationController
       User.where(:email => [list.person_2, list.person_3, list.person_4]).each do |x|
         x.register_to_use = false
         x.save
-      # end
-      # User.where(email: list.person_3).each do |x|
-      #   x.register_to_use = false
-      #   x.save
-      # end
-      # User.where(email: list.person_4).each do |x|
-      #   x.register_to_use = false
-      #   x.save
       end
     end
     redirect_to "/taxiple/page4"
@@ -240,35 +232,28 @@ class TaxipleController < ApplicationController
     @user = User.all
     @list = List.all
     #입력창에서 방장 / 참가자 / 구경꾼에 따라 보여주는 화면 설정
-    if !@list.where(person_2: current_user.email).empty?
-      @list.where(person_2: current_user.email).each do |list|
-        @p = list.mk_room_id
-      end
-    elsif !@list.where(person_3: current_user.email).empty?
-      @list.where(person_3: current_user.email).each do |list|
-        @p = list.mk_room_id
-      end
-    elsif !@list.where(person_4: current_user.email).empty?
-      @list.where(person_4: current_user.email).each do |list|
-        @p = list.mk_room_id
-      end
-    end
+    
     render layout: "materialize"
   end
   
   def my_room
     @user = User.all
     @chat = Chat.all
-    @list = List.where(
-                              :person_1 => current_user.id,
-                              :person_2 => params[:id]).take
-    @list2 = List.where(
-                              :person_2 => current_user.id,
-                              :person_1 => params[:id]).take                          
-    if @list.nil?
-      @list = @list2
-    end
+    # @list = List.where(
+    #                           :person_1 => current_user.id,
+    #                           :person_2 => params[:id]).take
+    # @list2 = List.where(
+    #                           :person_2 => current_user.id,
+    #                           :person_1 => params[:id]).take                          
+    # if @list.nil?
+    #   @list = @list2
+    # end
+    @a = params[:id]
     
+    
+    @list = List.where(
+                      :person_1 => [current_user.id, params[:id]],
+                      :person_2 => [current_user.id, params[:id]]).take
     
     @mention = ["환영합니다!", "오늘 하루도 화이팅!","어서오세요!"]
     
@@ -307,5 +292,9 @@ class TaxipleController < ApplicationController
                         list_id: params[:list_id] )
     
     render :text => ""
+  end
+  
+  def calculator
+    
   end
 end

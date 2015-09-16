@@ -1,4 +1,22 @@
-
+<% if @user.where(id: current_user).take.register_to_use == false %><!--방을 만들지도 참여한 적도 없는 유저--->
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card lime lighten-5">
+          <div class="container">
+            <div class="card-content black-text">
+              <span class="card-title black-text">방을 만들거나 참여하시지 않으셨군요!</span> 
+              <p>상단 좌측의 
+              <a class="btn-floating waves-effect waves-light red hoverable content"><i class="material-icons">add</i></a>
+              를 클릭해 방을 만들거나 대기중인 방에 참여해주세요!
+              </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 <!--시간 순서대로 정렬--->
 
 <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false) == 1%>
