@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="margin-bottom: 0px;">
     <div class="col s12 m6">
       <div class="card lime lighten-5">
         <% if @mkroom.count(user_id: current_user.id) > 0 && @mkroom.where(user_id: current_user.id).count(finish: false) == 1 && @user.where(id: current_user).count(register_to_use: false) == 1%>
@@ -52,8 +52,6 @@
     </div>
   </div>
 </div>
-
-<h3>Real_Time_Chat</h3>
 <%#  @chat.where(list_id: current_user.list.id).each do |c| %>
   <%# @user.where(id: c.user_id).each do |u| %>
 <!--    <div class="container">-->
@@ -71,40 +69,88 @@
 <!--    </div>-->
   <%# end %>
 <%# end %>
-
-
-<%  @chat.where(list_id: current_user.list.id).each do |c| %>
-  
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card lime lighten-5">
-            <div class="container">
-              <div class="card-content black-text">
-                <p><%= c.user_chat %> - <%= c.created_at.mon %>월 <%= c.created_at.day %>일 <%= c.created_at.hour %>시 <%= c.created_at.min %>분 </p>
+<!--.FixedHeightContainer
+{
+  float:right;
+  height: 250px;
+  width:250px; 
+  padding:3px; 
+    background:#f00;
+}
+.Content
+{
+  height:224px;
+   overflow:auto;
+    background:#fff;
+}-->
+<center>
+  <div class="FixedHeightContainer"><!--page_4.css--->
+    <h4><%= @user.where(id: current_user.id).take.list_id %>번방 채팅방</h4>
+    <div class="Content">
+    <%  @chat.where(list_id: current_user.list.id).each do |c| %>
+        <div class="container">
+          <div class="row" style="margin-bottom: 0px;">
+            <div class="col s12 m6">
+              <div class="card lime lighten-5">
+                <div class="container">
+                  <div class="card-content black-text">
+                    <p><%= @user.where(id: c.user_id).take.email %> : <%= c.user_chat %> - <%= c.created_at.mon %>월 <%= c.created_at.day %>일 <%= c.created_at.hour %>시 <%= c.created_at.min %>분 </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+    <% end %>
+    <div id="chat_list"></div>
     </div>
-<% end %>
-
-<div id="chat_list"></div>
-<div class="row">
+    
+    
+    
+    
+  <div class="row">
     <form class="col s12">
       <div class="row">
-        <div class="input-field col s6">
-          <i class="material-icons prefix">mode_edit</i>
-          <textarea id="chat_content" class="materialize-textarea"></textarea>
+        <div class="input-field col s10">
+          <textarea id="chat_content" rows="4" style="background: white; height: 4rem; "></textarea>
           <%  @list.each do  |l| %>
             <input type="hidden" id="list_id" value="<%= @a %>"><!---지금 있는 방에 대한 id값-->
           <% end %>
-          <label for="icon_prefix2">First Name<a href="#" id="submit_msg">아!!</a></label>
+          <label for="icon_prefix2"></label>
+        </div>
+        <div class="col s2">
+          <div class="valign-wrapper">
+            <a class="waves-effect waves-light btn valign" href="#" id="submit_msg" style="margin-top: 1rem; padding: 2rem 1rem;"><i class="material-icons" >textsms</i></a>
+          </div>
         </div>
       </div>
     </form>
   </div>
+  
+  
+</div>
+    
+    
+    
+  </div>
+</center>
+
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea id="chat_content" class="materialize-textarea"></textarea>
+        <%  @list.each do  |l| %>
+          <input type="hidden" id="list_id" value="<%= @a %>"><!---지금 있는 방에 대한 id값-->
+        <% end %>
+        <label for="icon_prefix2">First Name</label>
+      </div>
+    </div>
+    <a href="#" id="submit_msg">아!!</a>
+  </form>
+  
+</div>
 
 <!--<textarea id="chat_content">-->
 
@@ -118,7 +164,13 @@ $(document).ready(function() {
     });
     var channel = pusher.subscribe('onlyone');
     channel.bind('new_message', function(data) {
-      $("#chat_list").append("<p>" + data.email + " : " + data.msg + "<p>");
+      $("#chat_list").append(        
+         '<div class="container"><div class="row"><div class="col s12 m6"><div class="card lime lighten-5"><div class="container"><div class="card-content black-text">'
+       
+       + "<p>" + data.email + " : " + data.msg + "<p>" +
+         ' </div></div></div></div></div></div>'
+        
+        );
     });
     //클릭시 ajax로 값을 던지는 코드 start
     $("#submit_msg").click(function() {

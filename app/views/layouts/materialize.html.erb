@@ -46,7 +46,7 @@
       </a>
     </li>
   <% end %>
-    <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).count(register_to_use: false) == 1%>
+    <% if @mkroom.where(user_id: current_user.id).count(user_id: current_user.id) == 0 && @user.where(id: current_user.id).take.register_to_use == false%>
       <hr style="margin: 0px; padding: 0px;">
       <li class ="waves-effect waves-yellow" style="width: 100%">
         <a href="/taxiple/make_room">
@@ -96,7 +96,7 @@
     <span><%= current_user.email %>님 <%= @mention.sample %></span>
   </div>
 </nav>
-  <div class="navbar-fixed" >
+  <div class="navbar-fixed" style="position: absolute;" >
     <nav style="box-shadow: none;">
       <div class="right nav-wrapper">
         <a class='btn tooltipped yellow accent-2' data-position="left" data-delay="50" data-tooltip="현재 페이지를 새로고침 합니다." href='#' onclick='location.reload(true); return false;' style="padding: 0px 3px; margin: 10px;"><img src="../../assets/synchronize-48.png" style="height: 38px; width: 38px; "/></a>

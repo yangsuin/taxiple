@@ -262,8 +262,19 @@ html
   opacity: .6;
 }
 
-#button-icon {
-}
 
+/*my_room.erb파일의 css - Start -  */
+.FixedHeightContainer
+{
+  width:90%; 
+  padding:10px; 
+  background: yellow;
+}
+.Content
+{
+  height:300px;
+  overflow:auto;
+  background:#fff;
+}
 
 /*드롭다운 end*/

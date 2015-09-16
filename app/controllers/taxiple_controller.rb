@@ -173,6 +173,7 @@ class TaxipleController < ApplicationController
         x.save
       end
     end
+    
     redirect_to "/taxiple/page4"
   end
   
